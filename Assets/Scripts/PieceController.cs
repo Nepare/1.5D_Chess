@@ -5,6 +5,7 @@ using UnityEngine;
 public class PieceController : MonoBehaviour
 {
     public int X, Y;
+    public string piece;
     private bool isMoving;
     private Transform modelTransformer;
 
@@ -27,6 +28,48 @@ public class PieceController : MonoBehaviour
     private void Awake() {
         modelTransformer = transform.GetChild(0);
         isMoving = false;
+    }
+
+    public void AssignPiece(string pieceName)
+    {
+        HideAllModels();
+        piece = pieceName;
+        switch(piece)
+        {
+            case "king":
+                modelTransformer = transform.GetChild(0);
+                break;
+            case "bishop":
+                modelTransformer = transform.GetChild(1);
+                break;
+            case "knight":
+                modelTransformer = transform.GetChild(2);
+                break;
+            case "pawn":
+                modelTransformer = transform.GetChild(3);
+                break;
+            case "rook":
+                modelTransformer = transform.GetChild(4);
+                break;
+            case "queen":
+                modelTransformer = transform.GetChild(5);
+                break;                
+        }
+        modelTransformer.gameObject.SetActive(true);
+    }
+
+    public void SetInPlace(int coordX, int coordY)
+    {
+        Vector3 pos = new Vector3(0, 0, 7.5f - coordY);
+        Vector3 rotation = new Vector3(0, 0, -90f + (90f * coordX));
+        transform.localPosition = pos;
+        transform.eulerAngles = rotation;
+    }
+
+    private void HideAllModels()
+    {
+        for(int i=0; i<transform.childCount; i++)
+            transform.GetChild(i).gameObject.SetActive(false);
     }
 
     public void MovePiece(int newX, int newY, int dirX)
