@@ -110,7 +110,7 @@ public class GameController : MonoBehaviour
         pieceList.Add(new pieceStruct("pawn", 2, 14, false));
         pieceList.Add(new pieceStruct("pawn", 3, 14, false));
 
-        pieceList.Add(new pieceStruct("queen", 1, 3, true));
+        // pieceList.Add(new pieceStruct("queen", 1, 3, true));
     }
 
     private void SelectForMove(GameObject selectedPiece)
@@ -168,9 +168,26 @@ public class GameController : MonoBehaviour
             {
                 move = possibleMove;
                 dirX = System.Convert.ToInt32(Mathf.Sign(move.GetHorizontalDistance()));
+                
+                string oldContentOfEndTile = board[move.GetEndX(), move.GetEndY()];
                 board[move.GetEndX(), move.GetEndY()] = board[startX, startY];
                 board[startX, startY] = null;
                 currentlyEnabledPiece.GetComponent<PieceController>().MovePiece(startX + move.GetHorizontalDistance(), move.GetEndY(), dirX);
+                
+                if (oldContentOfEndTile == null) return;
+                if ((oldContentOfEndTile[0] == 'w' && board[move.GetEndX(), move.GetEndY()][0] == 'b') || (oldContentOfEndTile[0] == 'b' && board[move.GetEndX(), move.GetEndY()][0] == 'w'))
+                {
+                    for (int i = 0; i < pieces.transform.childCount; i++)
+                    {
+                        if (pieces.transform.GetChild(i).gameObject == currentlyEnabledPiece) continue;
+                        PieceController eatenPieceController = pieces.transform.GetChild(i).gameObject.GetComponent<PieceController>();
+                        if (eatenPieceController.X == move.GetEndX() && eatenPieceController.Y == move.GetEndY())
+                        {
+                            eatenPieceController.gameObject.SetActive(false);
+                            GlobalEventManager.SendPieceEaten(eatenPieceController.gameObject);
+                        }
+                    }
+                }
                 return;
             }
         }

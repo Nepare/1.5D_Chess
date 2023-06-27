@@ -132,7 +132,6 @@ public class PieceController : MonoBehaviour
 
     IEnumerator MoveAcrossBoard(int dX, int dY, int dirX, int frames)
     {
-        Debug.Log(dirX.ToString());
         Vector3 startPos = modelTransformer.localPosition;
         Vector3 newPos = new Vector3(startPos.x, startPos.y, startPos.z - dY);
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GlobalEventManager : MonoBehaviour
 {
-    public static System.Action<GameObject> OnPieceSelected, OnTileSelected, OnMoveableTileSelected;
+    public static System.Action<GameObject> OnPieceSelected, OnTileSelected, OnMoveableTileSelected, OnPieceEaten;
     public static System.Action OnSelectionCancel; 
 
     public static void SendPieceSelected(GameObject piece)
@@ -29,5 +29,11 @@ public class GlobalEventManager : MonoBehaviour
     {
         if (OnSelectionCancel != null)
             OnSelectionCancel.Invoke();
+    }
+
+    public static void SendPieceEaten(GameObject piece)
+    {
+        if (OnPieceEaten != null)
+            OnPieceEaten.Invoke(piece);
     }
 }
