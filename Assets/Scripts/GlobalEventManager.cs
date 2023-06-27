@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GlobalEventManager : MonoBehaviour
 {
-    public static System.Action<GameObject> OnPieceSelected, OnTileSelected;
+    public static System.Action<GameObject> OnPieceSelected, OnTileSelected, OnMoveableTileSelected;
     public static System.Action OnSelectionCancel; 
 
     public static void SendPieceSelected(GameObject piece)
@@ -17,6 +17,12 @@ public class GlobalEventManager : MonoBehaviour
     {
         if (OnTileSelected != null)
             OnTileSelected.Invoke(tile);
+    }
+    
+    public static void SendMoveableTileSelected(GameObject tile)
+    {
+        if (OnMoveableTileSelected != null)
+            OnMoveableTileSelected.Invoke(tile);
     }
 
     public static void SendSelectionCancel()

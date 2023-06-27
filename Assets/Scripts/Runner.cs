@@ -7,19 +7,19 @@ public class Runner : MonoBehaviour
     public struct TileAccess
     {
         int endX, endY;
-        int amountOfSteps;
+        int horizontalDistance;
         bool hitsEnemy;
-        public TileAccess(int _endX, int _endY, int _amountOfSteps, bool _hitsEnemy)
+        public TileAccess(int _endX, int _endY, int _horizontalDistance, bool _hitsEnemy)
         {
             this.endX = _endX;
             this.endY = _endY;
-            this.amountOfSteps = _amountOfSteps;
+            this.horizontalDistance = _horizontalDistance;
             this.hitsEnemy = _hitsEnemy;
         }
 
         public int GetEndX() { return this.endX; }
         public int GetEndY() { return this.endY; }  
-        public int GetAmountOfSteps() { return this.amountOfSteps; }
+        public int GetHorizontalDistance() { return this.horizontalDistance; }
         public bool GetHitsEnemy() { return this.hitsEnemy; }
     }
 
@@ -27,9 +27,11 @@ public class Runner : MonoBehaviour
     {
         List<TileAccess> answer = new List<TileAccess>();
         (int x, int y) coords = (startX, startY);
+        int horizontalDistance = 0;
         for (int i = 0; i < maxSteps; i++)
         {
             coords.x += stepX;
+            horizontalDistance += stepX;
             coords.y += stepY;
             if (coords.y < 0 || coords.y > 15) return answer;
             if (coords.x < 0) coords.x += 4;
@@ -37,7 +39,7 @@ public class Runner : MonoBehaviour
 
             if (board[coords.x, coords.y] == null)
             {
-                TileAccess accessibleTile = new TileAccess(coords.x, coords.y, i, false);
+                TileAccess accessibleTile = new TileAccess(coords.x, coords.y, horizontalDistance, false);
                 answer.Add(accessibleTile);
             }
             else if ((board[coords.x, coords.y][0] == 'w' && isWhite) || (board[coords.x, coords.y][0] == 'b' && !isWhite))
@@ -46,7 +48,7 @@ public class Runner : MonoBehaviour
             }
             else
             {
-                TileAccess enemyTile = new TileAccess(coords.x, coords.y, i, true);
+                TileAccess enemyTile = new TileAccess(coords.x, coords.y, horizontalDistance, true);
                 answer.Add(enemyTile);
                 return answer;
             }

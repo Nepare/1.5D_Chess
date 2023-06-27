@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Piece
   - Tile
+  - MoveTile
   layers:
   - Default
   - TransparentFX

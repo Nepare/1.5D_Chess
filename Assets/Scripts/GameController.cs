@@ -38,6 +38,7 @@ public class GameController : MonoBehaviour
         GlobalEventManager.OnPieceSelected += SelectForMove;
         GlobalEventManager.OnSelectionCancel += CancelSelection;
         GlobalEventManager.OnTileSelected += SelectTile;
+        GlobalEventManager.OnMoveableTileSelected += MoveToTile;
     }
 
     private void PlacePieces()
@@ -108,6 +109,8 @@ public class GameController : MonoBehaviour
         pieceList.Add(new pieceStruct("pawn", 1, 14, false));
         pieceList.Add(new pieceStruct("pawn", 2, 14, false));
         pieceList.Add(new pieceStruct("pawn", 3, 14, false));
+
+        pieceList.Add(new pieceStruct("queen", 1, 3, true));
     }
 
     private void SelectForMove(GameObject selectedPiece)
@@ -149,6 +152,27 @@ public class GameController : MonoBehaviour
             TileController tileController = activeTile.GetComponent<TileController>();
             tileController.DisableAccessible();
             tileController.DisableEnemy();
+        }
+    }
+
+    private void MoveToTile(GameObject selectedTile)
+    {
+        int dirX;
+        int startX = currentlyEnabledPiece.GetComponent<PieceController>().X, startY = currentlyEnabledPiece.GetComponent<PieceController>().Y;
+        int destinationX = selectedTile.GetComponent<TileController>().X, destinationY = selectedTile.GetComponent<TileController>().Y;
+        
+        Runner.TileAccess move;
+        foreach (Runner.TileAccess possibleMove in possibleMoves)
+        {
+            if (possibleMove.GetEndX() == destinationX && possibleMove.GetEndY() == destinationY)
+            {
+                move = possibleMove;
+                dirX = System.Convert.ToInt32(Mathf.Sign(move.GetHorizontalDistance()));
+                board[move.GetEndX(), move.GetEndY()] = board[startX, startY];
+                board[startX, startY] = null;
+                currentlyEnabledPiece.GetComponent<PieceController>().MovePiece(startX + move.GetHorizontalDistance(), move.GetEndY(), dirX);
+                return;
+            }
         }
     }
 

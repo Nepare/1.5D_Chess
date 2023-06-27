@@ -12,7 +12,7 @@ public class PieceController : MonoBehaviour
     private void Update() {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            MovePiece(X + 1, Y + 2, 1);
+            MovePiece(X - 4, Y + 2, 1);
             StartCoroutine(MoveClockwise());
         }
     }
@@ -20,7 +20,7 @@ public class PieceController : MonoBehaviour
     IEnumerator MoveClockwise()
     {
         yield return new WaitUntil(() => !isMoving);
-        MovePiece(X + 2, Y + 1, -1);
+        MovePiece(X + 1, Y + 1, -1);
     }
 
     // ==================================================== LOGIC ============================================================
@@ -96,7 +96,13 @@ public class PieceController : MonoBehaviour
         
         dX = newX - X;
         
-        StartCoroutine(MoveAcrossBoard(dX, dY, dirX, Mathf.Abs(dX) * 15));
+        int numberOfFramesForAnimation = Mathf.Abs(dX) * 15;
+        if (numberOfFramesForAnimation == 0) numberOfFramesForAnimation = 15;
+        StartCoroutine(MoveAcrossBoard(dX, dY, dirX, numberOfFramesForAnimation));
+        X = newX;
+        while (X < 0) X += 4;
+        X %= 4;
+        Y = newY;
     }
 
     IEnumerator MoveIn3D(bool isMovingUp)
@@ -126,6 +132,7 @@ public class PieceController : MonoBehaviour
 
     IEnumerator MoveAcrossBoard(int dX, int dY, int dirX, int frames)
     {
+        Debug.Log(dirX.ToString());
         Vector3 startPos = modelTransformer.localPosition;
         Vector3 newPos = new Vector3(startPos.x, startPos.y, startPos.z - dY);
 
