@@ -12,7 +12,7 @@ public class PieceController : MonoBehaviour
     private void Update() {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            MovePiece(1, 2, 1);
+            MovePiece(X + 1, Y + 2, 1);
             StartCoroutine(MoveClockwise());
         }
     }
@@ -20,7 +20,7 @@ public class PieceController : MonoBehaviour
     IEnumerator MoveClockwise()
     {
         yield return new WaitUntil(() => !isMoving);
-        MovePiece(2, 1, -1);
+        MovePiece(X + 2, Y + 1, -1);
     }
 
     // ==================================================== LOGIC ============================================================
@@ -54,6 +54,9 @@ public class PieceController : MonoBehaviour
             case "queen":
                 modelTransformer = transform.GetChild(5);
                 break;                
+            default:
+                modelTransformer = transform.GetChild(3);
+                break;
         }
         modelTransformer.gameObject.SetActive(true);
     }
@@ -64,6 +67,19 @@ public class PieceController : MonoBehaviour
         Vector3 rotation = new Vector3(0, 0, -90f + (90f * coordX));
         transform.localPosition = pos;
         transform.eulerAngles = rotation;
+        
+        X = coordX;
+        Y = coordY;
+    }
+
+    public void EnableOutline()
+    {
+        modelTransformer.GetChild(0).GetComponent<Outline>().enabled = true;
+    }
+
+    public void DisableOutline()
+    {
+        modelTransformer.GetChild(0).GetComponent<Outline>().enabled = false;
     }
 
     private void HideAllModels()
@@ -78,12 +94,7 @@ public class PieceController : MonoBehaviour
         int dX, dY = newY - Y;
         StartCoroutine(MoveIn3D(true));
         
-        if (dirX > 0 && (newX % 4) < X)
-            dX = newX + 4 - X;
-        else if (dirX < 0 && (newX % 4) > X)
-            dX = newX - 4 - X;
-        else
-            dX = newX - X;
+        dX = newX - X;
         
         StartCoroutine(MoveAcrossBoard(dX, dY, dirX, Mathf.Abs(dX) * 15));
     }
