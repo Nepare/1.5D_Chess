@@ -6,28 +6,12 @@ public class PieceController : MonoBehaviour
 {
     public int X, Y;
     public string piece;
-    private bool isMoving;
     private Transform modelTransformer;
-
-    private void Update() {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            MovePiece(X - 4, Y + 2, 1);
-            StartCoroutine(MoveClockwise());
-        }
-    }
-
-    IEnumerator MoveClockwise()
-    {
-        yield return new WaitUntil(() => !isMoving);
-        MovePiece(X + 1, Y + 1, -1);
-    }
 
     // ==================================================== LOGIC ============================================================
 
     private void Awake() {
         modelTransformer = transform.GetChild(0);
-        isMoving = false;
     }
 
     public void AssignPiece(string pieceName)
@@ -90,13 +74,13 @@ public class PieceController : MonoBehaviour
 
     public void MovePiece(int newX, int newY, int dirX)
     {
-        isMoving = true;
+        //ANIMATION STARTS HERE
         int dX, dY = newY - Y;
         StartCoroutine(MoveIn3D(true));
         
         dX = newX - X;
         
-        int numberOfFramesForAnimation = Mathf.Abs(dX) * 15;
+        int numberOfFramesForAnimation = ((30 - (Mathf.Abs(dX)-1))/2) * Mathf.Abs(dX); //arithmetic progression to accelerate animation
         if (numberOfFramesForAnimation == 0) numberOfFramesForAnimation = 15;
         StartCoroutine(MoveAcrossBoard(dX, dY, dirX, numberOfFramesForAnimation));
         X = newX;
@@ -126,7 +110,7 @@ public class PieceController : MonoBehaviour
                 if (verticalVelocity < 0.065) verticalVelocity += 0.005f;
                 yield return new WaitForFixedUpdate();
             }
-            isMoving = false;
+            // ANIMATION FINISHES HERE
         } 
     }
 
@@ -136,7 +120,7 @@ public class PieceController : MonoBehaviour
         Vector3 newPos = new Vector3(startPos.x, startPos.y, startPos.z - dY);
 
         int interpolationFramesCount = frames;
-        int degreesPerFrame = Mathf.Abs(dX) * 90 / interpolationFramesCount;
+        float degreesPerFrame = Mathf.Abs(dX) * 90f / interpolationFramesCount;
 
         for (int i = 1; i <= interpolationFramesCount; i++)
         {

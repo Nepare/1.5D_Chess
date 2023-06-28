@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Runner : MonoBehaviour
 {
-    public struct TileAccess
+    public class TileAccess
     {
         int endX, endY;
         int horizontalDistance;

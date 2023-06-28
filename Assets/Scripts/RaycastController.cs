@@ -36,6 +36,10 @@ public class RaycastController : MonoBehaviour
                     GlobalEventManager.SendTileSelected(hitTile);
                 }               
             }
+            else
+            {
+                GlobalEventManager.SendSelectionCancel();
+            }
         }
     }
 }
