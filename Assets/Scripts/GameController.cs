@@ -181,9 +181,6 @@ public class GameController : MonoBehaviour
                 board[move.GetEndX(), move.GetEndY()] = board[startX, startY];
                 board[startX, startY] = null;
                 currentlyEnabledPiece.GetComponent<PieceController>().MovePiece(startX + move.GetHorizontalDistance(), move.GetEndY(), dirX);
-                //////////////////////////  CURRENTLY IN DEBUG
-                IsPlayerChecked(false);
-                //////////////////////////
                 if (oldContentOfEndTile == null) return;
                 if ((oldContentOfEndTile[0] == 'w' && board[move.GetEndX(), move.GetEndY()][0] == 'b') || (oldContentOfEndTile[0] == 'b' && board[move.GetEndX(), move.GetEndY()][0] == 'w'))
                 {
@@ -254,8 +251,15 @@ public class GameController : MonoBehaviour
                     if (pawnDiagonalMoves.Count > 0)
                         pawnDiagonalMove = pawnDiagonalMoves[0];
                     else continue;
+
                     if (pawnDiagonalMove.GetHitsEnemy()) //if there is an enemy to the side
                     {
+                        int endX = pawnDiagonalMove.GetEndX(), endY = pawnDiagonalMove.GetEndY();
+                        string[,] potentialBoard = board.Clone() as string[,];
+                        potentialBoard[endX, endY] = potentialBoard[currentX, currentY];
+                        potentialBoard[currentX, currentY] = null;
+                        if (!IsMoveLegal(currentX, currentY, endX, endY)) continue;
+
                         possibleMoves.Add(pawnDiagonalMove);
                         GameObject possibleTile = tiles.transform.GetChild(pawnDiagonalMove.GetEndX()).GetChild(pawnDiagonalMove.GetEndY()).gameObject;
                         activeTiles.Add(possibleTile);
@@ -271,16 +275,22 @@ public class GameController : MonoBehaviour
         {
             foreach (Runner.TileAccess el in possibleMoves)
             {
+                int endX = el.GetEndX(), endY = el.GetEndY();
+                string[,] potentialBoard = board.Clone() as string[,];
+                potentialBoard[endX, endY] = potentialBoard[currentX, currentY];
+                potentialBoard[currentX, currentY] = null;
+                if (!IsMoveLegal(currentX, currentY, endX, endY)) continue;
+
                 if (!el.GetHitsEnemy())
                 {
-                    GameObject possibleTile = tiles.transform.GetChild(el.GetEndX()).GetChild(el.GetEndY()).gameObject;
+                    GameObject possibleTile = tiles.transform.GetChild(endX).GetChild(endY).gameObject;
                     activeTiles.Add(possibleTile);
                     possibleTile.GetComponent<TileController>().EnableAccessible();
                 }
                 else
                 {              
                     if (pieceType == 'p') continue;      
-                    GameObject possibleTile = tiles.transform.GetChild(el.GetEndX()).GetChild(el.GetEndY()).gameObject;
+                    GameObject possibleTile = tiles.transform.GetChild(endX).GetChild(endY).gameObject;
                     activeTiles.Add(possibleTile);
                     possibleTile.GetComponent<TileController>().EnableEnemy();
                 }
@@ -295,19 +305,19 @@ public class GameController : MonoBehaviour
         Destroy(eatenPiece);
     }
 
-    private bool IsPlayerChecked(bool isWhite)
+    private bool IsPlayerChecked(bool isWhite, string[,] potentialBoard)
     {
         bool isChecked = false;
         char kingColor = isWhite ? 'w' : 'b';
         char enemyColor = !isWhite ? 'w' : 'b';
         int kingX = -1, kingY = -1;
-        for (int i = 0; i < board.GetLength(0); i++)
+        for (int i = 0; i < potentialBoard.GetLength(0); i++)
         {
-            for (int j = 0; j < board.GetLength(1); j++)
+            for (int j = 0; j < potentialBoard.GetLength(1); j++)
             {
-                if (board[i, j] != null)
+                if (potentialBoard[i, j] != null)
                 {
-                    if (board[i, j] == kingColor.ToString() + "k")
+                    if (potentialBoard[i, j] == kingColor.ToString() + "k")
                     {
                         kingX = i;
                         kingY = j;
@@ -325,10 +335,10 @@ public class GameController : MonoBehaviour
         List<Runner.TileAccess> checkPositionsQueen = new List<Runner.TileAccess>();
         List<Runner.TileAccess> checkPositionsKing = new List<Runner.TileAccess>();
 
-        checkPositionsKing = GetComponent<PieceMovementPatterns>().GetAllPossibleMovesKing(kingX, kingY, isWhite, board);
+        checkPositionsKing = GetComponent<PieceMovementPatterns>().GetAllPossibleMovesKing(kingX, kingY, isWhite, potentialBoard);
         foreach (Runner.TileAccess possibleDangerTile in checkPositionsKing)
         {
-            if (board[possibleDangerTile.GetEndX(), possibleDangerTile.GetEndY()] == enemyColor + "k")
+            if (potentialBoard[possibleDangerTile.GetEndX(), possibleDangerTile.GetEndY()] == enemyColor + "k")
             {
                 isChecked = true;
                 GlobalEventManager.SendPlayerChecked(enemyColor + "k;" + possibleDangerTile.GetEndX().ToString() + ";" + 
@@ -336,10 +346,10 @@ public class GameController : MonoBehaviour
             }
         }
 
-        checkPositionsQueen = GetComponent<PieceMovementPatterns>().GetAllPossibleMovesQueen(kingX, kingY, isWhite, board);
+        checkPositionsQueen = GetComponent<PieceMovementPatterns>().GetAllPossibleMovesQueen(kingX, kingY, isWhite, potentialBoard);
         foreach (Runner.TileAccess possibleDangerTile in checkPositionsQueen)
         {
-            if (board[possibleDangerTile.GetEndX(), possibleDangerTile.GetEndY()] == enemyColor + "q")
+            if (potentialBoard[possibleDangerTile.GetEndX(), possibleDangerTile.GetEndY()] == enemyColor + "q")
             {
                 isChecked = true;
                 GlobalEventManager.SendPlayerChecked(enemyColor + "q;" + possibleDangerTile.GetEndX().ToString() + ";" + 
@@ -347,10 +357,10 @@ public class GameController : MonoBehaviour
             }
         }
 
-        checkPositionsBishop = GetComponent<PieceMovementPatterns>().GetAllPossibleMovesBishop(kingX, kingY, isWhite, board);
+        checkPositionsBishop = GetComponent<PieceMovementPatterns>().GetAllPossibleMovesBishop(kingX, kingY, isWhite, potentialBoard);
         foreach (Runner.TileAccess possibleDangerTile in checkPositionsBishop)
         {
-            if (board[possibleDangerTile.GetEndX(), possibleDangerTile.GetEndY()] == enemyColor + "b")
+            if (potentialBoard[possibleDangerTile.GetEndX(), possibleDangerTile.GetEndY()] == enemyColor + "b")
             {
                 isChecked = true;
                 GlobalEventManager.SendPlayerChecked(enemyColor + "b;" + possibleDangerTile.GetEndX().ToString() + ";" + 
@@ -358,10 +368,10 @@ public class GameController : MonoBehaviour
             }
         }
 
-        checkPositionsRook = GetComponent<PieceMovementPatterns>().GetAllPossibleMovesRook(kingX, kingY, isWhite, board);
+        checkPositionsRook = GetComponent<PieceMovementPatterns>().GetAllPossibleMovesRook(kingX, kingY, isWhite, potentialBoard);
         foreach (Runner.TileAccess possibleDangerTile in checkPositionsRook)
         {
-            if (board[possibleDangerTile.GetEndX(), possibleDangerTile.GetEndY()] == enemyColor + "r")
+            if (potentialBoard[possibleDangerTile.GetEndX(), possibleDangerTile.GetEndY()] == enemyColor + "r")
             {
                 isChecked = true;
                 GlobalEventManager.SendPlayerChecked(enemyColor + "r;" + possibleDangerTile.GetEndX().ToString() + ";" + 
@@ -369,10 +379,10 @@ public class GameController : MonoBehaviour
             }
         }
 
-        checkPositionsKnight = GetComponent<PieceMovementPatterns>().GetAllPossibleMovesKnight(kingX, kingY, isWhite, board);
+        checkPositionsKnight = GetComponent<PieceMovementPatterns>().GetAllPossibleMovesKnight(kingX, kingY, isWhite, potentialBoard);
         foreach (Runner.TileAccess possibleDangerTile in checkPositionsKnight)
         {
-            if (board[possibleDangerTile.GetEndX(), possibleDangerTile.GetEndY()] == enemyColor + "h")
+            if (potentialBoard[possibleDangerTile.GetEndX(), possibleDangerTile.GetEndY()] == enemyColor + "h")
             {
                 isChecked = true;
                 GlobalEventManager.SendPlayerChecked(enemyColor + "h;" + possibleDangerTile.GetEndX().ToString() + ";" + 
@@ -381,11 +391,11 @@ public class GameController : MonoBehaviour
         }
 
         int direction = isWhite ? 1 : -1;
-        runner.Run(kingX, kingY, -1, direction, 1, isWhite, board).ForEach(move => checkPositionsPawn.Add(move));
-        runner.Run(kingX, kingY, 1,  direction, 1, isWhite, board).ForEach(move => checkPositionsPawn.Add(move));
+        runner.Run(kingX, kingY, -1, direction, 1, isWhite, potentialBoard).ForEach(move => checkPositionsPawn.Add(move));
+        runner.Run(kingX, kingY, 1,  direction, 1, isWhite, potentialBoard).ForEach(move => checkPositionsPawn.Add(move));
         foreach (Runner.TileAccess possibleDangerTile in checkPositionsPawn)
         {
-            if (board[possibleDangerTile.GetEndX(), possibleDangerTile.GetEndY()] == enemyColor + "p")
+            if (potentialBoard[possibleDangerTile.GetEndX(), possibleDangerTile.GetEndY()] == enemyColor + "p")
             {
                 isChecked = true;
                 GlobalEventManager.SendPlayerChecked(enemyColor + "p;" + possibleDangerTile.GetEndX().ToString() + ";" + 
@@ -399,5 +409,19 @@ public class GameController : MonoBehaviour
     private void HandleCheck(string message)
     {
         Debug.Log(message);
+    }
+
+    private bool IsMoveLegal(int startX, int startY, int endX, int endY)
+    {
+        bool isLegal = true;
+
+        string[,] potentialBoard = board.Clone() as string[,];
+        bool isWhite = potentialBoard[startX, startY][0] == 'w' ? true : false;
+        potentialBoard[endX, endY] = potentialBoard[startX, startY];
+        potentialBoard[startX, startY] = null;
+        if (IsPlayerChecked(isWhite, potentialBoard)) 
+            isLegal = false;
+
+        return isLegal;
     }
 }
