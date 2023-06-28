@@ -5,7 +5,7 @@ using UnityEngine;
 public class BoardRotation : MonoBehaviour
 {
     public float rotationSpeed = 5f, cameraSpeed = 70f, zoomSpeed = 1f, moveAlongSpeed = 15f;
-    public float bottomZoomEdge = 5, topZoomEdge = 15;
+    public float bottomZoomEdge = 1, topZoomEdge = 15;
     private int cameraReverse = 1;
     [SerializeField] private GameObject _cam;
     private Transform camTranformer;

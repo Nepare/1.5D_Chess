@@ -11,6 +11,8 @@ public class GameController : MonoBehaviour
     private List<Runner.TileAccess> possibleMoves = new List<Runner.TileAccess>();
     private List<GameObject> activeTiles = new List<GameObject>();
     public Material whiteMaterial, blackMaterial;
+    private bool WhitesTurnToMove;
+
     private class pieceStruct 
     {
         string name;
@@ -42,12 +44,16 @@ public class GameController : MonoBehaviour
         GlobalEventManager.OnTileSelected += SelectTile;
         GlobalEventManager.OnMoveableTileSelected += MoveToTile;
         GlobalEventManager.OnPieceEaten += HandleEatenPiece;
-        GlobalEventManager.OnPlayerChecked += HandleCheck;
+
+        GlobalEventManager.OnPlayerChecked    += HandleCheck;
+        GlobalEventManager.OnPlayerCheckmated += HandleCheckmate;
+        GlobalEventManager.OnPlayerStalemated += HandleStalemate;
 
         for (int i = 0; i < pieces.transform.childCount; i++)
         {
             pieceControllers.Add(pieces.transform.GetChild(i).gameObject.GetComponent<PieceController>());
         }
+        WhitesTurnToMove = true;
     }
 
     private void PlacePieces()
@@ -172,6 +178,8 @@ public class GameController : MonoBehaviour
         Runner.TileAccess move;
         foreach (Runner.TileAccess possibleMove in possibleMoves)
         {
+            if (!IsRightTurn(startX, startY)) return;
+
             if (possibleMove.GetEndX() == destinationX && possibleMove.GetEndY() == destinationY)
             {
                 move = possibleMove;
@@ -179,7 +187,19 @@ public class GameController : MonoBehaviour
                 
                 string oldContentOfEndTile = board[move.GetEndX(), move.GetEndY()];
                 board[move.GetEndX(), move.GetEndY()] = board[startX, startY];
-                board[startX, startY] = null;
+                board[startX, startY] = null;        
+                NextTurn();
+                if (IsPlayerChecked(WhitesTurnToMove, board) && IsPlayerDoomed(WhitesTurnToMove))
+                {
+                    GlobalEventManager.SendPlayerCheckmated(WhitesTurnToMove ? "w" : "b");
+                    return;
+                }
+                if (IsPlayerDoomed(WhitesTurnToMove))
+                {
+                    GlobalEventManager.SendPlayerStalemated(WhitesTurnToMove ? "w" : "b");
+                    return;
+                }
+
                 currentlyEnabledPiece.GetComponent<PieceController>().MovePiece(startX + move.GetHorizontalDistance(), move.GetEndY(), dirX);
                 if (oldContentOfEndTile == null) return;
                 if ((oldContentOfEndTile[0] == 'w' && board[move.GetEndX(), move.GetEndY()][0] == 'b') || (oldContentOfEndTile[0] == 'b' && board[move.GetEndX(), move.GetEndY()][0] == 'w'))
@@ -405,10 +425,23 @@ public class GameController : MonoBehaviour
 
         return isChecked;
     }
-
-    private void HandleCheck(string message)
+    
+    private void NextTurn()
     {
-        Debug.Log(message);
+        WhitesTurnToMove = !WhitesTurnToMove;
+    }
+
+    private bool IsRightTurn(int pieceX, int pieceY)
+    {
+        if (board[pieceX, pieceY] != null && board[pieceX, pieceY][0] == 'w' && !WhitesTurnToMove) 
+        {
+            return false;
+        }    
+        if (board[pieceX, pieceY] != null && board[pieceX, pieceY][0] == 'b' && WhitesTurnToMove) 
+        {
+            return false;
+        }
+        return true;
     }
 
     private bool IsMoveLegal(int startX, int startY, int endX, int endY)
@@ -424,4 +457,117 @@ public class GameController : MonoBehaviour
 
         return isLegal;
     }
+
+    private bool IsPlayerDoomed(bool isWhite)
+    {
+        char playerColor = isWhite ? 'w' : 'b';
+        char enemyColor  = isWhite ? 'b' : 'w';
+        Runner runner = GetComponent<Runner>();
+
+        for (int pieceX = 0; pieceX < board.GetLength(0); pieceX++)
+        {
+            for (int pieceY = 0; pieceY < board.GetLength(1); pieceY++)
+            {
+                if (board[pieceX, pieceY] != null && board[pieceX, pieceY][0] == playerColor)
+                {
+                    List<Runner.TileAccess> tilesToExitOutOfCheck = new List<Runner.TileAccess>();
+                    char pieceType = board[pieceX, pieceY][1];
+                    switch (pieceType)
+                    {
+                        case 'k':
+                            tilesToExitOutOfCheck = GetComponent<PieceMovementPatterns>().GetAllPossibleMovesKing(pieceX, pieceY, isWhite, board);
+                            break;
+                        case 'q':
+                            tilesToExitOutOfCheck = GetComponent<PieceMovementPatterns>().GetAllPossibleMovesQueen(pieceX, pieceY, isWhite, board);
+                            break;
+                        case 'b':
+                            tilesToExitOutOfCheck = GetComponent<PieceMovementPatterns>().GetAllPossibleMovesBishop(pieceX, pieceY, isWhite, board);
+                            break;
+                        case 'r':
+                            tilesToExitOutOfCheck = GetComponent<PieceMovementPatterns>().GetAllPossibleMovesRook(pieceX, pieceY, isWhite, board);
+                            break;
+                        case 'h':
+                            tilesToExitOutOfCheck = GetComponent<PieceMovementPatterns>().GetAllPossibleMovesKnight(pieceX, pieceY, isWhite, board);
+                            break;
+                        case 'p':
+                            int lengthOfMove = 0;
+                            int stepDirection = 0;
+                            if (isWhite)
+                            {
+                                if (pieceY == 1)
+                                    lengthOfMove = 2;
+                                else 
+                                    lengthOfMove = 1;
+                                stepDirection = 1;
+                            }
+                            else
+                            {
+                                if (pieceY == 14)
+                                    lengthOfMove = 2;
+                                else
+                                    lengthOfMove = 1;
+                                stepDirection = -1;
+                            }
+                                
+                            runner.Run(pieceX, pieceY, 0, stepDirection, lengthOfMove, isWhite, board).ForEach(move => tilesToExitOutOfCheck.Add(move));
+                            for (int direction = -1; direction < 2; direction +=2)
+                            {
+                                List<Runner.TileAccess> pawnDiagonalMoves = runner.Run(pieceX, pieceY, direction, stepDirection, 1, isWhite, board);
+                                Runner.TileAccess pawnDiagonalMove;
+                                if (pawnDiagonalMoves.Count > 0)
+                                    pawnDiagonalMove = pawnDiagonalMoves[0];
+                                else continue;
+
+                                if (pawnDiagonalMove.GetHitsEnemy())
+                                {
+                                    int endX = pawnDiagonalMove.GetEndX(), endY = pawnDiagonalMove.GetEndY();
+                                    string[,] potentialBoard = board.Clone() as string[,];
+                                    potentialBoard[endX, endY] = potentialBoard[pieceX, pieceY];
+                                    potentialBoard[pieceX, pieceY] = null;
+                                    if (!IsMoveLegal(pieceX, pieceY, endX, endY)) continue;
+                                    //if a pawn can attack so the player controlling it exits the check position
+                                    return false; 
+                                }
+                            }
+                            break;
+                    }
+
+                    if (tilesToExitOutOfCheck.Count != 0)
+                    {
+                        foreach (Runner.TileAccess potentialTileToEscapeCheck in tilesToExitOutOfCheck)
+                        {
+                            int endX = potentialTileToEscapeCheck.GetEndX(), endY = potentialTileToEscapeCheck.GetEndY();
+                            string[,] potentialBoard = board.Clone() as string[,];
+                            potentialBoard[endX, endY] = potentialBoard[pieceX, pieceY];
+                            potentialBoard[pieceX, pieceY] = null;
+                            if (!IsMoveLegal(pieceX, pieceY, endX, endY)) continue;
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    private void HandleCheck(string message)
+    {
+    }
+
+    private void HandleCheckmate(string message)
+    {
+        if (message[0] == 'w')
+        Debug.Log("THE BLACK HAVE WON");
+        else
+        Debug.Log("THE WHITE HAVE WON");
+    }
+
+    private void HandleStalemate(string message)
+    {
+        if (message[0] == 'w')
+        Debug.Log("STALEMATE: THE WHITE CANNOT MOVE");
+        else
+        Debug.Log("STALEMATE: THE BLACK CANNOT MOVE");
+    }
+
 }

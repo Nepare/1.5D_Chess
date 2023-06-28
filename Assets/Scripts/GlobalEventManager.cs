@@ -5,7 +5,7 @@ using UnityEngine;
 public class GlobalEventManager : MonoBehaviour
 {
     public static System.Action<GameObject> OnPieceSelected, OnTileSelected, OnMoveableTileSelected, OnPieceEaten;
-    public static System.Action<string> OnPlayerChecked;
+    public static System.Action<string> OnPlayerChecked, OnPlayerCheckmated, OnPlayerStalemated;
     public static System.Action OnSelectionCancel; 
 
     public static void SendPieceSelected(GameObject piece)
@@ -38,9 +38,21 @@ public class GlobalEventManager : MonoBehaviour
             OnPieceEaten.Invoke(piece);
     }
 
-    public static void SendPlayerChecked(string dangerPiece)
+    public static void SendPlayerChecked(string message)
     {
         if (OnPlayerChecked != null)
-            OnPlayerChecked.Invoke(dangerPiece);
+            OnPlayerChecked.Invoke(message);
+    }
+
+    public static void SendPlayerCheckmated(string message)
+    {
+        if (OnPlayerCheckmated != null)
+            OnPlayerCheckmated.Invoke(message);
+    }
+
+    public static void SendPlayerStalemated(string message)
+    {
+        if (OnPlayerStalemated != null)
+            OnPlayerStalemated.Invoke(message);
     }
 }
