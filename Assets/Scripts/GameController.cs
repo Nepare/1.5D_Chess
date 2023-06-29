@@ -135,6 +135,7 @@ public class GameController : MonoBehaviour
         currentlyEnabledPiece = selectedPiece;
         currentlyEnabledTile = tiles.transform.GetChild(selectedPieceController.X).GetChild(selectedPieceController.Y).gameObject;
         currentlyEnabledTile.GetComponent<TileController>().EnableCurrent();
+        HandleMaterialChange(board[selectedPieceController.X, selectedPieceController.Y][0] == 'w' ? true : false);
         CalculatePossibleMoves(selectedPieceController.X, selectedPieceController.Y);
     }
 
@@ -148,6 +149,7 @@ public class GameController : MonoBehaviour
         {
             if (possibleRightPieceController.X == coords.x && possibleRightPieceController.Y == coords.y)
             {
+                HandleMaterialChange(board[coords.x, coords.y][0] == 'w' ? true : false);
                 currentlyEnabledPiece = possibleRightPieceController.gameObject;
                 possibleRightPieceController.EnableOutline();
                 CalculatePossibleMoves(coords.x, coords.y);
@@ -550,6 +552,14 @@ public class GameController : MonoBehaviour
         return true;
     }
 
+    private void HandleMaterialChange(bool WhiteSelected)
+    {
+        if (WhiteSelected == WhitesTurnToMove)
+            GlobalEventManager.SendUseNormalMaterialsForHints();
+        else
+            GlobalEventManager.SendUseAltMaterialsForHints();
+    }
+
     private void HandleCheck(string message)
     {
     }
@@ -569,5 +579,4 @@ public class GameController : MonoBehaviour
         else
         Debug.Log("STALEMATE: THE BLACK CANNOT MOVE");
     }
-
 }

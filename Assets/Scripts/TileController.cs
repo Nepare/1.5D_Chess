@@ -5,13 +5,17 @@ using UnityEngine;
 public class TileController : MonoBehaviour
 {
     public int X, Y;
-    public bool isAccessible, isCurrent, isEnemy;
+    public bool isAccessible, isCurrent, isEnemy, isAltUsed;
     private GameObject accessibilityTexture, currentTexture, enemyTexture;
+    [SerializeField] public Material accessibilityMaterial_1, currentMaterial_1, enemyMaterial_1, accessibilityMaterial_2, currentMaterial_2, enemyMaterial_2;
 
     private void Awake() {
+        GlobalEventManager.OnUseAltMaterialsForHints += SwitchToAltMaterial;
+        GlobalEventManager.OnUseNormalMaterialsForHints += SwitchToNormalMaterial;
         isAccessible = false;
         isCurrent = false;
         isEnemy = false;
+        isAltUsed = false;
         accessibilityTexture = transform.GetChild(1).gameObject;
         accessibilityTexture.SetActive(false);
         currentTexture = transform.GetChild(2).gameObject;
@@ -54,5 +58,27 @@ public class TileController : MonoBehaviour
     {
         isEnemy = false;
         enemyTexture.SetActive(false);
+    }
+
+    public void SwitchToAltMaterial()
+    {
+        accessibilityTexture.GetComponent<Renderer>().material = accessibilityMaterial_2;
+        currentTexture.GetComponent<Renderer>().material = currentMaterial_2;
+        enemyTexture.GetComponent<Renderer>().material = enemyMaterial_2;
+        isAltUsed = true;
+    }
+
+    public void SwitchToNormalMaterial()
+    {
+        accessibilityTexture.GetComponent<Renderer>().material = accessibilityMaterial_1;
+        currentTexture.GetComponent<Renderer>().material = currentMaterial_1;
+        enemyTexture.GetComponent<Renderer>().material = enemyMaterial_1;
+        isAltUsed = false;
+    }
+
+    public void SwitchMaterial()
+    {
+        if (isAltUsed) SwitchToNormalMaterial();
+        else SwitchToAltMaterial();
     }
 }
