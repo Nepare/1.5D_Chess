@@ -13,6 +13,8 @@ public class BoardRotation : MonoBehaviour
     private Transform camTranformer;
     private Quaternion startRotationCamera, startRotationBoard;
 
+    private int rotatingAlongAxis, rotatingClockwise, movingTo;
+
     private void Awake() {
         GlobalEventManager.OnCameraDefault += ReturnToDefault;
         camTranformer = _cam.transform;
@@ -22,38 +24,71 @@ public class BoardRotation : MonoBehaviour
 
     private void Update() {
         Zoom();
-        RotateBoard();
-        RotateCamera();
-        MoveAlongBoard();
+        HandleInputs();
+        // RotateCamera();
+        // MoveAlongBoard();
+    }
+
+    private void HandleInputs()
+    {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             GlobalEventManager.SendCameraDefault();
         }
-    }
 
-    private void RotateBoard()
-    {
         if (Input.GetMouseButton(1))
         {
             float mouseRotation = Input.GetAxis("Mouse Y");
             if (camTranformer.localEulerAngles.y >= 0 && camTranformer.localEulerAngles.y < 180)
-            {
-                transform.Rotate(0, 0, -mouseRotation * rotationSpeed * cameraReverse);  
-            }
-            else
-                transform.Rotate(0, 0, mouseRotation * rotationSpeed * cameraReverse);
+                RotateBoard(-mouseRotation);
+            else 
+                RotateBoard(mouseRotation);
         }
+
+        if (Input.GetKey(KeyCode.Q))
+            RotateCamera(-1);
+        if (Input.GetKey(KeyCode.E))
+            RotateCamera(1);
+
+        if (Input.GetKey(KeyCode.W))
+            MoveAlongBoard(90, 270, -1, false);
+        else if (Input.GetKey(KeyCode.S))
+            MoveAlongBoard(90, 270, 1, false);
+        else if (Input.GetKey(KeyCode.A))
+            MoveAlongBoard(0, 180, 1, false);
+        else if (Input.GetKey(KeyCode.D))
+            MoveAlongBoard(0, 180, -1, false);
+        else MoveAlongBoard(0, 0, 1, true);
     }
 
-    private void RotateCamera()
+    public void RotateBoard(float mouseRotation)
     {
-        if (Input.GetKey(KeyCode.Q))
+        transform.Rotate(0, 0, mouseRotation * rotationSpeed * cameraReverse);  
+    }
+
+    public void RotateCamera(int clockwise)
+    {
+        camTranformer.Rotate(0, 0, clockwise * cameraSpeed * Time.deltaTime);
+    }
+
+    public void MoveAlongBoard(float minDegree, float maxDegree, int firstDirection, bool returnToDefault)
+    {
+        if (!returnToDefault)
         {
-            camTranformer.Rotate(0, 0, -1 * cameraSpeed * Time.deltaTime);
+            int direction = 0;
+            timerToReturnToCenter = timeToReturnToCenter;
+            // 1 - direction towards WHITE spawn, -1 - direction towards BLACK spawn
+            if (camTranformer.localEulerAngles.y > minDegree && camTranformer.localEulerAngles.y < maxDegree)
+                direction = firstDirection;
+            else
+                direction = firstDirection * -1;
+
+            camTranformer.localPosition = Vector3.Lerp(new Vector3(0, camTranformer.position.y, camTranformer.position.z), new Vector3(0, camTranformer.position.y, direction * 6), 0.01f);
         }
-        if (Input.GetKey(KeyCode.E))
+        else 
         {
-            camTranformer.Rotate(0, 0, 1 * cameraSpeed * Time.deltaTime);
+            if (timerToReturnToCenter > 0) timerToReturnToCenter--;
+            else ReturnToCenter();
         }
     }
 
@@ -68,53 +103,6 @@ public class BoardRotation : MonoBehaviour
         );
     }
 
-    private void MoveAlongBoard()
-    {
-        int direction = 0;
-        // 1 - direction towards WHITE spawn, -1 - direction towards BLACK spawn
-
-        if (Input.GetKey(KeyCode.W))
-        {
-            timerToReturnToCenter = timeToReturnToCenter;
-            if (camTranformer.localEulerAngles.y > 90 && camTranformer.localEulerAngles.y < 270)
-                direction = -1;
-            else
-                direction = 1;
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            timerToReturnToCenter = timeToReturnToCenter;
-            if (camTranformer.localEulerAngles.y > 90 && camTranformer.localEulerAngles.y < 270)
-                direction = 1;
-            else
-                direction = -1;
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            timerToReturnToCenter = timeToReturnToCenter;
-            if (camTranformer.localEulerAngles.y > 0 && camTranformer.localEulerAngles.y < 180)
-                direction = 1;
-            else
-                direction = -1;
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            timerToReturnToCenter = timeToReturnToCenter;
-            if (camTranformer.localEulerAngles.y > 0 && camTranformer.localEulerAngles.y < 180)
-                direction = -1;
-            else
-                direction = 1;
-        }
-
-        if (direction != 0)
-            camTranformer.localPosition = Vector3.Lerp(new Vector3(0, camTranformer.position.y, camTranformer.position.z), new Vector3(0, camTranformer.position.y, direction * 6), 0.01f);
-        else 
-        {
-            if (timerToReturnToCenter > 0) timerToReturnToCenter--;
-            else ReturnToCenter();
-        }
-    }
-
     private void ReturnToCenter()
     {   
         camTranformer.localPosition = Vector3.Lerp(new Vector3(0, camTranformer.position.y, camTranformer.position.z), new Vector3(0, camTranformer.position.y, 0), 0.002f);
@@ -122,7 +110,7 @@ public class BoardRotation : MonoBehaviour
 
     private void ReturnToDefault()
     {
-        camTranformer.localPosition = new Vector3(0, 8f, 0);
+        camTranformer.localPosition = new Vector3(0, 9f, 0);
         camTranformer.rotation = startRotationCamera;
         transform.rotation = startRotationBoard;
     }

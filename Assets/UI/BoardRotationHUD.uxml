@@ -1,0 +1,23 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/RotateHUDTallButton.uss?fileID=7433441132597879392&amp;guid=245e848bd7e75d94e8d2447a181c3ae6&amp;type=3#RotateHUDTallButton" />
+    <ui:VisualElement name="HUD" style="height: 450px; flex-direction: row; flex-wrap: nowrap; align-items: flex-end; justify-content: flex-start;">
+        <ui:VisualElement name="Col1" style="background-image: none; margin-bottom: 5px; margin-left: 5px;">
+            <ui:Button text="&#10;" display-tooltip-when-elided="true" name="MoveLeft" class="RotateTall" style="background-image: url(&apos;project://database/Assets/UI/Textures/HUD/CameraControls/HUD_arrow_left.png?fileID=2800000&amp;guid=1f6e7875a9c44f84da117db18eac1826&amp;type=3#HUD_arrow_left&apos;); height: 68px;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Col2" style="margin-bottom: 5px;">
+            <ui:Button text="&#10;" display-tooltip-when-elided="true" name="SpinClockwise" class="RotateTall" style="height: 68px;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Col3" style="margin-bottom: 5px;">
+            <ui:Button text="&#10;" display-tooltip-when-elided="true" name="SpinForward" class="RotateG" style="background-image: url(&apos;project://database/Assets/UI/Textures/HUD/CameraControls/HUD_arrow_backward.png?fileID=2800000&amp;guid=f4428032844532d438ca8dd12d0eb63c&amp;type=3#HUD_arrow_backward&apos;); -unity-background-scale-mode: stretch-to-fill; height: 15px; width: 30px; padding-top: 0; padding-bottom: 0;" />
+            <ui:Button text="&#10;" display-tooltip-when-elided="true" name="Default" class="RotateG" style="width: 30px; height: 30px; padding-bottom: 0; padding-top: 0;" />
+            <ui:Button text="&#10;" display-tooltip-when-elided="true" name="SpinBack" class="RotateG" style="background-image: url(&apos;project://database/Assets/UI/Textures/HUD/CameraControls/HUD_arrow_forward.png?fileID=2800000&amp;guid=759d9aa824a82d445b54e279460f279f&amp;type=3#HUD_arrow_forward&apos;); -unity-background-scale-mode: stretch-to-fill; height: 15px; width: 30px; padding-bottom: 0; padding-top: 0;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Col4" style="margin-bottom: 5px;">
+            <ui:Button text="&#10;" display-tooltip-when-elided="true" name="SpinAntiClockwise" class="RotateTall" style="background-image: url(&apos;project://database/Assets/UI/Textures/HUD/CameraControls/HUD_arrow_anticlockwise.png?fileID=2800000&amp;guid=5de6cb55998f51a42868b764a3dc581b&amp;type=3#HUD_arrow_anticlockwise&apos;); height: 68px;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Col5" style="margin-bottom: 5px;">
+            <ui:Button text="&#10;" display-tooltip-when-elided="true" name="MoveRight" class="RotateTall" style="background-image: url(&apos;project://database/Assets/UI/Textures/HUD/CameraControls/HUD_arrow_right.png?fileID=2800000&amp;guid=0d555e2f161ead84e8998b11dac7d68d&amp;type=3#HUD_arrow_right&apos;); height: 68px;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Col1" style="background-image: none;" />
+    </ui:VisualElement>
+</ui:UXML>

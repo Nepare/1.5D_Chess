@@ -1,2 +1,57 @@
 .MainMenuButton {
+    position: absolute;
+    left: 12px;
+    width: 215px;
+    bottom: 12px;
+    height: 31px;
+    padding-left: 12px;
+    padding-right: 12px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgb(241, 150, 21);
+    border-right-color: rgb(241, 150, 21);
+    border-top-color: rgb(241, 150, 21);
+    border-bottom-color: rgb(241, 150, 21);
+    background-color: rgba(56, 88, 224, 0);
+    -unity-font-style: normal;
+    font-size: 16px;
+    letter-spacing: 15px;
+    color: rgb(255, 255, 255);
+    padding-top: 9px;
+    margin-top: 4px;
+}
+
+.MainMenuButton:hover {
+    position: absolute;
+    left: 12px;
+    width: 215px;
+    bottom: 60px;
+    height: 31px;
+    padding-left: 12px;
+    padding-right: 12px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-left-width: 4px;
+    border-right-width: 4px;
+    border-top-width: 4px;
+    border-bottom-width: 4px;
+    border-left-color: rgb(241, 150, 21);
+    border-right-color: rgb(241, 150, 21);
+    border-top-color: rgb(241, 150, 21);
+    border-bottom-color: rgb(241, 150, 21);
+    background-color: rgba(56, 88, 224, 0.41);
+    -unity-font-style: normal;
+    font-size: 16px;
+    letter-spacing: 30px;
+    color: rgb(255, 255, 255);
+    margin-top: 4px;
+    padding-top: 9px;
 }
