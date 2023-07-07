@@ -19,7 +19,7 @@ public class RaycastController : MonoBehaviour
             {
                 if (_Target.transform.gameObject.CompareTag("Piece"))
                 {
-                    GlobalEventManager.SendSelectionCancel();
+                    GlobalEventManager.SendSelectionCancel(false);
                     GameObject hitPiece = _Target.transform.parent.parent.gameObject;
                     GlobalEventManager.SendPieceSelected(hitPiece);
                 }
@@ -27,18 +27,18 @@ public class RaycastController : MonoBehaviour
                 {
                     GameObject hitTile = _Target.transform.parent.gameObject;
                     GlobalEventManager.SendMoveableTileSelected(hitTile);
-                    GlobalEventManager.SendSelectionCancel();
+                    GlobalEventManager.SendSelectionCancel(false);
                 }              
                 else if (_Target.transform.gameObject.CompareTag("Tile"))
                 {
-                    GlobalEventManager.SendSelectionCancel();
+                    GlobalEventManager.SendSelectionCancel(true);
                     GameObject hitTile = _Target.transform.parent.gameObject;
                     GlobalEventManager.SendTileSelected(hitTile);
                 }               
             }
             else
             {
-                GlobalEventManager.SendSelectionCancel();
+                GlobalEventManager.SendSelectionCancel(true);
             }
         }
     }

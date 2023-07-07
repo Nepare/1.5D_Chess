@@ -1,6 +1,6 @@
 .RotateG {
-    width: 40px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
     background-image: url('project://database/Assets/UI/Textures/HUD/CameraControls/HUD_arrow_default.png?fileID=2800000&guid=67d547d07c1c1cc4599962541fed9b55&type=3#HUD_arrow_default');
     background-color: rgba(188, 188, 188, 0);
     -unity-background-image-tint-color: rgba(255, 255, 255, 255);
@@ -9,14 +9,28 @@
     border-right-color: rgba(0, 0, 0, 0);
     border-top-color: rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0, 0, 0, 0);
+    margin-left: 4px;
+    margin-right: 4px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    padding-left: 12px;
+    padding-right: 12px;
 }
 
 .RotateTall {
     background-image: url('project://database/Assets/UI/Textures/HUD/CameraControls/HUD_arrow_clockwise.png?fileID=2800000&guid=ddf0233b4f9051b46998cb5ab2253f56&type=3#HUD_arrow_clockwise');
-    height: 108px;
+    height: 68px;
     background-color: rgba(188, 188, 188, 0);
     border-left-color: rgba(0, 0, 0, 0);
     border-right-color: rgba(0, 0, 0, 0);
     border-top-color: rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0, 0, 0, 0);
+    margin-left: 4px;
+    margin-right: 4px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }

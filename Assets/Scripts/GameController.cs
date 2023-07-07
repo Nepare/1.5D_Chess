@@ -157,7 +157,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-    private void CancelSelection()
+    private void CancelSelection(bool trueCancel)
     {
         if (currentlyEnabledPiece != null)
             currentlyEnabledPiece.GetComponent<PieceController>().DisableOutline();
@@ -189,7 +189,8 @@ public class GameController : MonoBehaviour
                 
                 string oldContentOfEndTile = board[move.GetEndX(), move.GetEndY()];
                 board[move.GetEndX(), move.GetEndY()] = board[startX, startY];
-                board[startX, startY] = null;        
+                board[startX, startY] = null;    
+                GlobalEventManager.SendMoveMade();    
                 NextTurn();
                 if (IsPlayerChecked(WhitesTurnToMove, board) && IsPlayerDoomed(WhitesTurnToMove))
                 {

@@ -6,7 +6,8 @@ public class GlobalEventManager : MonoBehaviour
 {
     public static System.Action<GameObject> OnPieceSelected, OnTileSelected, OnMoveableTileSelected, OnPieceEaten;
     public static System.Action<string> OnPlayerChecked, OnPlayerCheckmated, OnPlayerStalemated;
-    public static System.Action OnSelectionCancel, OnCameraDefault, OnUseAltMaterialsForHints, OnUseNormalMaterialsForHints; 
+    public static System.Action<bool> OnSelectionCancel;
+    public static System.Action OnCameraDefault, OnUseAltMaterialsForHints, OnUseNormalMaterialsForHints, OnMoveMade; 
 
     public static void SendPieceSelected(GameObject piece)
     {
@@ -26,10 +27,10 @@ public class GlobalEventManager : MonoBehaviour
             OnMoveableTileSelected.Invoke(tile);
     }
 
-    public static void SendSelectionCancel()
+    public static void SendSelectionCancel(bool trueCancel)
     {
         if (OnSelectionCancel != null)
-            OnSelectionCancel.Invoke();
+            OnSelectionCancel.Invoke(trueCancel);
     }
 
     public static void SendPieceEaten(GameObject piece)
@@ -54,6 +55,12 @@ public class GlobalEventManager : MonoBehaviour
     {
         if (OnPlayerStalemated != null)
             OnPlayerStalemated.Invoke(message);
+    }
+
+    public static void SendMoveMade()
+    {
+        if (OnMoveMade != null)
+            OnMoveMade.Invoke();
     }
 
     public static void SendCameraDefault()
