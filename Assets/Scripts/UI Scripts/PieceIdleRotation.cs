@@ -6,9 +6,10 @@ public class PieceIdleRotation : MonoBehaviour
 {
     private Vector3 rotationDirection;
     private Transform pieceTransform;
-    public float rotationSpeed = 10f;
+    public float rotationSpeed;
 
     private void Awake() {
+        rotationSpeed = 10f;
         rotationDirection = new Vector3(Random.Range(-5, 5), Random.Range(-5, 5), Random.Range(-5, 5));
         pieceTransform = transform;
     }

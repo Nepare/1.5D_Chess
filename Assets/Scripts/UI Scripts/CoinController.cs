@@ -5,10 +5,14 @@ using UnityEngine;
 public class CoinController : MonoBehaviour
 {
     private Quaternion whiteSide, blackSide, whitePrepare, blackPrepare;
-    private int flipFrames = 40, chargeFrames = 10;
+    private int flipFrames, chargeFrames;
     private bool isWhite = true, isPrepared = false;
+    private float canvasWidth, canvasHeight;
 
     private void Awake() {
+        flipFrames = 40; 
+        chargeFrames = 10;
+
         whiteSide = transform.rotation;
         transform.Rotate(0, 0, 20);
         whitePrepare = transform.rotation;
@@ -20,6 +24,11 @@ public class CoinController : MonoBehaviour
         GlobalEventManager.OnSelectionCancel += CancelPreparationFunc;
         GlobalEventManager.OnMoveMade += FlipFunc;
         GlobalEventManager.OnPieceSelected += PrepareFunc;
+
+        RectTransform objectRectTransform = transform.GetComponentInParent<RectTransform>();
+        canvasHeight = objectRectTransform.rect.height;
+        canvasWidth = objectRectTransform.rect.width;
+        transform.localPosition = new Vector3(canvasWidth / 2 - (transform.localScale.x * 1.25f), canvasHeight / 2 - (transform.localScale.y * 1.25f), 0);
     }
 
     private void Start() {
@@ -100,6 +109,5 @@ public class CoinController : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         if (currentFrame == frameCount) isWhite = !isWhite;
-        Debug.Log("animation played! now is " + (isWhite ? "white" : "black"));
     }
 }

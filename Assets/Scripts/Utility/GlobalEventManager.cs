@@ -80,4 +80,24 @@ public class GlobalEventManager : MonoBehaviour
         if (OnUseNormalMaterialsForHints != null)
             OnUseNormalMaterialsForHints.Invoke();
     }
+
+    public static void UnsubscribeAll()
+    {
+        OnCameraDefault = null;
+
+        OnPieceSelected = null;
+        OnTileSelected = null;
+        OnMoveableTileSelected = null;
+        OnSelectionCancel = null;
+        
+        OnMoveMade = null;
+        OnPieceEaten = null;
+        
+        OnPlayerChecked = null;
+        OnPlayerCheckmated = null;
+        OnPlayerStalemated = null;
+
+        OnUseAltMaterialsForHints = null;
+        OnUseNormalMaterialsForHints = null;
+    }
 }

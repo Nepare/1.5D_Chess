@@ -7,7 +7,7 @@ public class MenuController : MonoBehaviour
     public GameObject piecePrefab;
     private List<FloatingPiece> floatingPieces;
     private List<string> pieceNames = new List<string>() {"king", "queen", "knight", "bishop", "rook", "pawn"};
-    private float movingSpeed = 0.1f;
+    private float movingSpeed;
     private class FloatingPiece
     {
         public GameObject pieceObj;
@@ -27,6 +27,8 @@ public class MenuController : MonoBehaviour
     }
 
     private void Awake() {
+        movingSpeed = 0.1f;
+
         floatingPieces = new List<FloatingPiece>();
         AddPiecesToBackground(20);
     }
@@ -51,6 +53,7 @@ public class MenuController : MonoBehaviour
             GameObject newPiece = Instantiate(piecePrefab, GetPolarCoords(r, theta, phi), Quaternion.identity);
             newPiece.GetComponent<PieceController>().AssignPiece(pieceNames[Random.Range(0, pieceNames.Count - 1)]);
             newPiece.AddComponent<PieceIdleRotation>();
+            newPiece.GetComponent<PieceIdleRotation>().enabled = true;
             floatingPieces.Add(new FloatingPiece(newPiece, r, theta, phi, direction));
         }
     }

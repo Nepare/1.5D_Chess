@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     private string[,] board;
+    public GameObject menu;
     public GameObject pieces, piecePrefab, tiles;
     private List<PieceController> pieceControllers = new List<PieceController>();
     private GameObject currentlyEnabledTile, currentlyEnabledPiece;
@@ -37,6 +38,7 @@ public class GameController : MonoBehaviour
     private void Awake() 
     {
         board = new string[4, 16];
+        menu.SetActive(true);
         SetupPieces();
         PlacePieces();
         GlobalEventManager.OnPieceSelected += SelectForMove;
@@ -130,6 +132,7 @@ public class GameController : MonoBehaviour
 
     private void SelectForMove(GameObject selectedPiece)
     {
+        if (EscapeMenu.isPaused) return;
         PieceController selectedPieceController = selectedPiece.GetComponent<PieceController>();
         selectedPieceController.EnableOutline();
         currentlyEnabledPiece = selectedPiece;
@@ -141,6 +144,7 @@ public class GameController : MonoBehaviour
 
     private void SelectTile(GameObject selectedTile)
     {
+        if (EscapeMenu.isPaused) return;
         currentlyEnabledTile = selectedTile;
         currentlyEnabledTile.GetComponent<TileController>().EnableCurrent();
         (int x, int y) coords = (currentlyEnabledTile.GetComponent<TileController>().X, currentlyEnabledTile.GetComponent<TileController>().Y);
@@ -159,6 +163,7 @@ public class GameController : MonoBehaviour
 
     private void CancelSelection(bool trueCancel)
     {
+        if (EscapeMenu.isPaused) return;
         if (currentlyEnabledPiece != null)
             currentlyEnabledPiece.GetComponent<PieceController>().DisableOutline();
         if (currentlyEnabledTile != null)
@@ -173,6 +178,7 @@ public class GameController : MonoBehaviour
 
     private void MoveToTile(GameObject selectedTile)
     {
+        if (EscapeMenu.isPaused) return;
         int dirX;
         int startX = currentlyEnabledPiece.GetComponent<PieceController>().X, startY = currentlyEnabledPiece.GetComponent<PieceController>().Y;
         int destinationX = selectedTile.GetComponent<TileController>().X, destinationY = selectedTile.GetComponent<TileController>().Y;
@@ -212,6 +218,7 @@ public class GameController : MonoBehaviour
                         if (eatenPieceController.gameObject == currentlyEnabledPiece) continue;
                         if (eatenPieceController.X == move.GetEndX() && eatenPieceController.Y == move.GetEndY())
                         {
+                            menu.GetComponent<EscapeMenu>().DecreasePieceCount(oldContentOfEndTile);
                             GlobalEventManager.SendPieceEaten(eatenPieceController.gameObject);
                             break;
                         }

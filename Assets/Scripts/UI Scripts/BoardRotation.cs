@@ -9,24 +9,24 @@ public class BoardRotation : MonoBehaviour
     private float timerToReturnToCenter;
     private const float timeToReturnToCenter = 100f;
     private int cameraReverse = 1;
-    [SerializeField] private GameObject _cam;
+    private Camera _cam;
     private Transform camTranformer;
     private Quaternion startRotationCamera, startRotationBoard;
 
     private int rotatingAlongAxis, rotatingClockwise, movingTo;
 
     private void Awake() {
+        _cam = Camera.main;
         GlobalEventManager.OnCameraDefault += ReturnToDefault;
-        camTranformer = _cam.transform;
+        camTranformer = _cam.gameObject.transform;
         startRotationCamera = camTranformer.rotation;
         startRotationBoard = transform.rotation;
     }
 
     private void Update() {
-        Zoom();
-        HandleInputs();
-        // RotateCamera();
-        // MoveAlongBoard();
+        
+        if (!EscapeMenu.isPaused)
+            HandleInputs();
     }
 
     private void HandleInputs()
@@ -49,6 +49,9 @@ public class BoardRotation : MonoBehaviour
             RotateCamera(-1);
         if (Input.GetKey(KeyCode.E))
             RotateCamera(1);
+
+        if (Input.GetAxis("Mouse ScrollWheel") != 0f)
+            Zoom(Input.GetAxis("Mouse ScrollWheel"));
 
         if (Input.GetKey(KeyCode.W))
             MoveAlongBoard(90, 270, -1, false);
@@ -92,9 +95,9 @@ public class BoardRotation : MonoBehaviour
         }
     }
 
-    private void Zoom()
+    public void Zoom(float scrollSpeed)
     {
-        camTranformer.position += -camTranformer.forward * zoomSpeed * -1 * Input.GetAxis("Mouse ScrollWheel");
+        camTranformer.position += -camTranformer.forward * zoomSpeed * -1 * scrollSpeed;
         camTranformer.position = new Vector3
         (
         camTranformer.position.x,
