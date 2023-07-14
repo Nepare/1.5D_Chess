@@ -3,52 +3,52 @@
     <ui:VisualElement name="root" style="justify-content: center; align-items: center; height: 100%; width: 100%;">
         <ui:VisualElement name="background" style="height: 90%; width: 40%; padding-left: 1px; padding-right: 1px; padding-top: 1px; padding-bottom: 1px; justify-content: space-between; align-items: stretch; margin-left: 5%; margin-right: 5%; margin-top: 5%; margin-bottom: 5%; background-color: rgb(119, 156, 171); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-left-color: rgb(50, 50, 84); border-right-color: rgb(50, 50, 84); border-top-color: rgb(50, 50, 84); border-bottom-color: rgb(50, 50, 84);">
             <ui:VisualElement name="button_space" style="height: 50%; flex-direction: column; justify-content: space-around;">
-                <ui:Button text="Continue" display-tooltip-when-elided="true" name="btn_continue" class="EscapeMenuButton" />
-                <ui:Button text="Restart" display-tooltip-when-elided="true" name="btn_restart" class="EscapeMenuButton" />
-                <ui:Button text="Quit to TItle Screen" display-tooltip-when-elided="true" name="btn_titlescreen" class="EscapeMenuButton" />
+                <ui:Button text="Continue" display-tooltip-when-elided="true" name="btn_continue" class="EscapeMenuButton" style="height: 30%;" />
+                <ui:Button text="Restart" display-tooltip-when-elided="true" name="btn_restart" class="EscapeMenuButton" style="height: 30%;" />
+                <ui:Button text="Quit to TItle Screen" display-tooltip-when-elided="true" name="btn_titlescreen" class="EscapeMenuButton" style="height: 30%;" />
             </ui:VisualElement>
             <ui:VisualElement name="pieces_space" style="height: 50%; flex-direction: row; justify-content: space-between; margin-bottom: 5%;">
                 <ui:VisualElement name="white_pieces" style="width: 50%;">
                     <ui:VisualElement name="pawns" style="flex-direction: row; height: 20%;">
                         <ui:VisualElement name="icon" style="width: 50%; background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_wp.gif?fileID=2800000&amp;guid=15394d41ddfa8494b819bd4c0317c6c2&amp;type=3#escape_wp&apos;); -unity-background-scale-mode: scale-to-fit;" />
-                        <ui:Label text="4" display-tooltip-when-elided="true" name="wp_count" style="width: 50%; -unity-font-style: bold; -unity-text-align: middle-center;" />
+                        <ui:Label text="0" display-tooltip-when-elided="true" name="wp_count" style="width: 50%; -unity-font-style: bold; -unity-text-align: middle-center;" />
                     </ui:VisualElement>
                     <ui:VisualElement name="rooks" style="height: 20%; flex-direction: row;">
                         <ui:VisualElement name="icon" style="width: 50%; background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_wr.gif?fileID=2800000&amp;guid=992d6e7026954eb4c8effaf4bdf949ab&amp;type=3#escape_wr&apos;); -unity-background-scale-mode: scale-to-fit;" />
-                        <ui:Label text="1" display-tooltip-when-elided="true" name="wr_count" style="width: 50%; -unity-font-style: bold; -unity-text-align: middle-center;" />
+                        <ui:Label text="0" display-tooltip-when-elided="true" name="wr_count" style="width: 50%; -unity-font-style: bold; -unity-text-align: middle-center;" />
                     </ui:VisualElement>
                     <ui:VisualElement name="knights" style="flex-direction: row; height: 20%;">
                         <ui:VisualElement name="icon" style="width: 50%; background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_wh.gif?fileID=2800000&amp;guid=38a195e4dd0bb2e4a806e97add8e2f89&amp;type=3#escape_wh&apos;); -unity-background-scale-mode: scale-to-fit;" />
-                        <ui:Label text="1" display-tooltip-when-elided="true" name="wh_count" style="width: 50%; -unity-font-style: bold; -unity-text-align: middle-center;" />
+                        <ui:Label text="0" display-tooltip-when-elided="true" name="wh_count" style="width: 50%; -unity-font-style: bold; -unity-text-align: middle-center;" />
                     </ui:VisualElement>
                     <ui:VisualElement name="bishops" style="flex-direction: row; height: 20%;">
                         <ui:VisualElement name="icon" style="width: 50%; background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_wb.gif?fileID=2800000&amp;guid=b3bc740dcb2519d4ca9d99d7fe97d16e&amp;type=3#escape_wb&apos;); -unity-background-scale-mode: scale-to-fit;" />
-                        <ui:Label text="1" display-tooltip-when-elided="true" name="wb_count" style="width: 50%; -unity-font-style: bold; -unity-text-align: middle-center;" />
+                        <ui:Label text="0" display-tooltip-when-elided="true" name="wb_count" style="width: 50%; -unity-font-style: bold; -unity-text-align: middle-center;" />
                     </ui:VisualElement>
                     <ui:VisualElement name="queen" style="flex-direction: row; height: 20%;">
                         <ui:VisualElement name="icon" style="width: 50%; background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_wq.gif?fileID=2800000&amp;guid=ca859d6972717c2448affbbd4a0c093c&amp;type=3#escape_wq&apos;); -unity-background-scale-mode: scale-to-fit;" />
-                        <ui:Label text="1" display-tooltip-when-elided="true" name="wq_count" style="width: 50%; -unity-font-style: bold; -unity-text-align: middle-center;" />
+                        <ui:Label text="0" display-tooltip-when-elided="true" name="wq_count" style="width: 50%; -unity-font-style: bold; -unity-text-align: middle-center;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="black_pieces" style="width: 50%;">
                     <ui:VisualElement name="pawns" style="flex-direction: row; height: 20%;">
-                        <ui:Label text="4" display-tooltip-when-elided="true" name="bp_count" style="width: 50%; -unity-font-style: bold; -unity-text-align: middle-center;" />
+                        <ui:Label text="0" display-tooltip-when-elided="true" name="bp_count" style="width: 50%; -unity-font-style: bold; -unity-text-align: middle-center;" />
                         <ui:VisualElement name="icon" style="width: 50%; background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_bp.gif?fileID=2800000&amp;guid=42f204c8d81353349ad8f8bb6fafc5cc&amp;type=3#escape_bp&apos;); -unity-background-scale-mode: scale-to-fit;" />
                     </ui:VisualElement>
                     <ui:VisualElement name="rooks" style="height: 20%; flex-direction: row;">
-                        <ui:Label text="1" display-tooltip-when-elided="true" name="br_count" style="width: 50%; -unity-font-style: bold; -unity-text-align: middle-center;" />
+                        <ui:Label text="0" display-tooltip-when-elided="true" name="br_count" style="width: 50%; -unity-font-style: bold; -unity-text-align: middle-center;" />
                         <ui:VisualElement name="icon" style="width: 50%; background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_br.gif?fileID=2800000&amp;guid=54fd0350a91c93d42a81466934c8a7a3&amp;type=3#escape_br&apos;); -unity-background-scale-mode: scale-to-fit;" />
                     </ui:VisualElement>
                     <ui:VisualElement name="knights" style="flex-direction: row; height: 20%;">
-                        <ui:Label text="1" display-tooltip-when-elided="true" name="bh_count" style="width: 50%; -unity-font-style: bold; -unity-text-align: middle-center;" />
+                        <ui:Label text="0" display-tooltip-when-elided="true" name="bh_count" style="width: 50%; -unity-font-style: bold; -unity-text-align: middle-center;" />
                         <ui:VisualElement name="icon" style="width: 50%; background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_bh.gif?fileID=2800000&amp;guid=9a64d0d0773ebfc4689d437c7482c9d0&amp;type=3#escape_bh&apos;); -unity-background-scale-mode: scale-to-fit;" />
                     </ui:VisualElement>
                     <ui:VisualElement name="bishops" style="flex-direction: row; height: 20%;">
-                        <ui:Label text="1" display-tooltip-when-elided="true" name="bb_count" style="width: 50%; -unity-font-style: bold; -unity-text-align: middle-center;" />
+                        <ui:Label text="0" display-tooltip-when-elided="true" name="bb_count" style="width: 50%; -unity-font-style: bold; -unity-text-align: middle-center;" />
                         <ui:VisualElement name="icon" style="width: 50%; background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_bb.gif?fileID=2800000&amp;guid=fa82cf81d0f46644fb0fa1bddb54a938&amp;type=3#escape_bb&apos;); -unity-background-scale-mode: scale-to-fit;" />
                     </ui:VisualElement>
                     <ui:VisualElement name="queen" style="flex-direction: row; height: 20%;">
-                        <ui:Label text="1" display-tooltip-when-elided="true" name="bq_count" style="width: 50%; -unity-font-style: bold; -unity-text-align: middle-center;" />
+                        <ui:Label text="0" display-tooltip-when-elided="true" name="bq_count" style="width: 50%; -unity-font-style: bold; -unity-text-align: middle-center;" />
                         <ui:VisualElement name="icon" style="width: 50%; background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_bq.gif?fileID=2800000&amp;guid=70756b0008ff3f845b42731d582766e9&amp;type=3#escape_bq&apos;); -unity-background-scale-mode: scale-to-fit;" />
                     </ui:VisualElement>
                 </ui:VisualElement>

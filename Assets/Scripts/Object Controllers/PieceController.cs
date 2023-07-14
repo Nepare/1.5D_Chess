@@ -47,10 +47,19 @@ public class PieceController : MonoBehaviour
 
     public void SetInPlace(int coordX, int coordY)
     {
-        Vector3 pos = new Vector3(0, 0, 7.5f - coordY);
-        Vector3 rotation = new Vector3(0, 0, -90f + (90f * coordX));
+        Vector3 pos, rotation;
+        if (coordX == -1)
+        {
+            pos = new Vector3(0, 0, 7.5f * coordY);
+            rotation = new Vector3(180 - 90 * coordY, 0, 0);
+        }
+        else
+        {
+            pos = new Vector3(0, 0, 7.5f - coordY);
+            rotation = new Vector3(0, 0, -90f + (90f * coordX));
+        }
         transform.localPosition = pos;
-        transform.eulerAngles = rotation;
+        transform.localEulerAngles = rotation;
         
         X = coordX;
         Y = coordY;
@@ -74,13 +83,23 @@ public class PieceController : MonoBehaviour
 
     public void MovePiece(int newX, int newY, int dirX)
     {
+        if(X == -1)
+        {
+            bool whiteSide = (Y == 1 ? true : false);
+            gameObject.GetComponent<EdgePieceIdleAnimation>().DisableSway();
+            StartCoroutine(EnterBoard(whiteSide, newX));
+            X = newX;
+            Y = newY;
+            return;
+        }
+
         //ANIMATION STARTS HERE
         int dX, dY = newY - Y;
         StartCoroutine(MoveIn3D(true));
         
         dX = newX - X;
         
-        int numberOfFramesForAnimation = ((30 - (Mathf.Abs(dX)-1))/2) * Mathf.Abs(dX); //arithmetic progression to accelerate animation
+        int numberOfFramesForAnimation = ((30 - (Mathf.Abs(dX) - 1))/2) * Mathf.Abs(dX); //arithmetic progression to accelerate animation
         if (numberOfFramesForAnimation == 0) numberOfFramesForAnimation = 15;
         StartCoroutine(MoveAcrossBoard(dX, dY, dirX, numberOfFramesForAnimation));
         X = newX;
@@ -112,6 +131,39 @@ public class PieceController : MonoBehaviour
             }
             // ANIMATION FINISHES HERE
         } 
+    }
+
+    IEnumerator EnterBoard(bool whiteSide, int destinationTile)
+    {
+        Vector3 deltaRotation = Vector3.zero;
+        switch (destinationTile)
+        {
+            case 0:
+                deltaRotation = new Vector3(0, 0, -90);
+                break;
+            case 1:
+                deltaRotation = new Vector3(-90 * (whiteSide ? 1 : -1), 0, 0);
+                break;
+            case 2:
+                deltaRotation = new Vector3(0, 0, 90);
+                break;
+            case 3:
+                deltaRotation = new Vector3(90 * (whiteSide ? 1 : -1), 0, 0);
+                break;
+        }
+
+        float frameCount = 20f;
+        Vector3 degreesPerFrame = deltaRotation / frameCount;
+        
+        for (int i = 0; i < frameCount; i++)
+        {
+            transform.Rotate(degreesPerFrame, Space.Self);
+            yield return new WaitForFixedUpdate();
+        }
+
+        StartCoroutine(MoveIn3D(false));
+        SetInPlace(destinationTile, whiteSide ? 0 : 15);
+        GetComponent<EdgePieceIdleAnimation>().enabled = false;
     }
 
     IEnumerator MoveAcrossBoard(int dX, int dY, int dirX, int frames)

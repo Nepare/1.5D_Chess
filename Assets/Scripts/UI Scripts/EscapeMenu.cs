@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class EscapeMenu : MonoBehaviour
 {
@@ -63,5 +64,22 @@ public class EscapeMenu : MonoBehaviour
     {
         Label decreasingCountLabel = root.Q<Label>(eatenPiece + "_count");
         decreasingCountLabel.text = (int.Parse(decreasingCountLabel.text) - 1).ToString();
+    }
+
+    public void SetupPieces(List<string> names)
+    {
+        foreach (string name in names)
+        {
+            string finalName;
+            if (name[1] == 'k' && name[2] == 'i')
+                continue;
+            else if (name[1] == 'k' && name[2] == 'n')
+                finalName = name[0] + "h";
+            else 
+                finalName = name[0] + name[1].ToString();
+            
+            Label countLabel = root.Q<Label>(finalName + "_count");
+            countLabel.text = (int.Parse(countLabel.text) + 1).ToString();
+        }
     }
 }

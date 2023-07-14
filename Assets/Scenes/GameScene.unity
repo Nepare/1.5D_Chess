@@ -4370,7 +4370,6 @@ MonoBehaviour:
   moveAlongSpeed: 15
   bottomZoomEdge: 5
   topZoomEdge: 15
-  _cam: {fileID: 963194225}
 --- !u!1001 &1190353989
 PrefabInstance:
   m_ObjectHideFlags: 0
