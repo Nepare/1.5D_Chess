@@ -129,6 +129,7 @@ public class PieceController : MonoBehaviour
                 if (verticalVelocity < 0.065) verticalVelocity += 0.005f;
                 yield return new WaitForFixedUpdate();
             }
+            StartCoroutine(CorrectYLevelPosition(15));
             // ANIMATION FINISHES HERE
         } 
     }
@@ -183,5 +184,15 @@ public class PieceController : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         StartCoroutine(MoveIn3D(false));
+    }
+
+    IEnumerator CorrectYLevelPosition(int framesCount)
+    {
+        Vector3 startPosition = modelTransformer.localPosition;
+        for (int i=0; i<framesCount; i++)
+        {
+            modelTransformer.localPosition = Vector3.Lerp(startPosition, new Vector3(startPosition.x, 0.5f, startPosition.z), (float)i/framesCount);
+            yield return new WaitForFixedUpdate();
+        }
     }
 }

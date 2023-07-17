@@ -4367,7 +4367,7 @@ MonoBehaviour:
   rotationSpeed: 5
   cameraSpeed: 70
   zoomSpeed: 3
-  moveAlongSpeed: 15
+  moveAlongSpeed: 0.02
   bottomZoomEdge: 5
   topZoomEdge: 15
 --- !u!1001 &1190353989

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BoardRotation : MonoBehaviour
 {
-    public float rotationSpeed = 5f, cameraSpeed = 70f, zoomSpeed = 1f, moveAlongSpeed = 15f;
+    public float rotationSpeed = 5f, cameraSpeed = 70f, zoomSpeed = 1f, moveAlongSpeed = 0.02f;
     public float bottomZoomEdge = 1, topZoomEdge = 15;
     private float timerToReturnToCenter;
     private const float timeToReturnToCenter = 100f;
@@ -86,7 +86,7 @@ public class BoardRotation : MonoBehaviour
             else
                 direction = firstDirection * -1;
 
-            camTranformer.localPosition = Vector3.Lerp(new Vector3(0, camTranformer.position.y, camTranformer.position.z), new Vector3(0, camTranformer.position.y, direction * 6), 0.01f);
+            camTranformer.localPosition = Vector3.Lerp(new Vector3(0, camTranformer.position.y, camTranformer.position.z), new Vector3(0, camTranformer.position.y, direction * 7), 0.02f);
         }
         else 
         {

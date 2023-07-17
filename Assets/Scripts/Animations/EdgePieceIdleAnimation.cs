@@ -7,8 +7,7 @@ public class EdgePieceIdleAnimation : MonoBehaviour
     private int idleTimer;
     private float swaySpeed = 0.2f;
     private float frameTimePeriod = 0.001f;
-    private bool isSwayingUp, softDisabledSwaying; 
-    public bool disabledSwaying;
+    private bool isSwayingUp, disabledSwaying; 
     private Transform modelTransformer;
 
     private void Awake() {
@@ -54,7 +53,7 @@ public class EdgePieceIdleAnimation : MonoBehaviour
         int peakSpeedFrame = maxFrames / 2;
         while (!disabledSwaying)
         {
-            while (idleTimer > 0)
+            while (idleTimer > 0 && !disabledSwaying)
             {
                 float frameMovement = ((isSwayingUp ? 1 : -1) * swaySpeed * Time.deltaTime) * ((float)(-Mathf.Abs(idleTimer - peakSpeedFrame) + peakSpeedFrame) / peakSpeedFrame);
                 modelTransformer.Translate(new Vector3(0, frameMovement, 0), Space.Self);

@@ -5,7 +5,7 @@
             <ui:VisualElement name="button_space" style="height: 50%; flex-direction: column; justify-content: space-around;">
                 <ui:Button text="Continue" display-tooltip-when-elided="true" name="btn_continue" class="EscapeMenuButton" style="height: 30%;" />
                 <ui:Button text="Restart" display-tooltip-when-elided="true" name="btn_restart" class="EscapeMenuButton" style="height: 30%;" />
-                <ui:Button text="Quit to TItle Screen" display-tooltip-when-elided="true" name="btn_titlescreen" class="EscapeMenuButton" style="height: 30%;" />
+                <ui:Button text="Quit to Title Screen" display-tooltip-when-elided="true" name="btn_titlescreen" class="EscapeMenuButton" style="height: 30%;" />
             </ui:VisualElement>
             <ui:VisualElement name="pieces_space" style="height: 50%; flex-direction: row; justify-content: space-between; margin-bottom: 5%;">
                 <ui:VisualElement name="white_pieces" style="width: 50%;">
