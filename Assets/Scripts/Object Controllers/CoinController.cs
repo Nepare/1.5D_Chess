@@ -8,6 +8,7 @@ public class CoinController : MonoBehaviour
     private int flipFrames, chargeFrames;
     private bool isWhite = true, isPrepared = false;
     private float canvasWidth, canvasHeight;
+    private CheckMeterController checkText;
 
     private void Awake() {
         flipFrames = 40; 
@@ -25,6 +26,7 @@ public class CoinController : MonoBehaviour
         GlobalEventManager.OnMoveMade += FlipFunc;
         GlobalEventManager.OnPieceSelected += PrepareFunc;
 
+        checkText = transform.GetChild(3).gameObject.GetComponent<CheckMeterController>();
         RectTransform objectRectTransform = transform.GetComponentInParent<RectTransform>();
         canvasHeight = objectRectTransform.rect.height;
         canvasWidth = objectRectTransform.rect.width;
@@ -65,12 +67,14 @@ public class CoinController : MonoBehaviour
         {
             transform.rotation = Quaternion.Lerp(whiteSide, whitePrepare, (float)currentFrame / (float)frameCount);
             currentFrame++;
+            checkText.KeepRotation();
             yield return new WaitForFixedUpdate();
         }
         while (!isWhite && currentFrame < frameCount)
         {
             transform.rotation = Quaternion.Lerp(blackSide, blackPrepare, (float)currentFrame / (float)frameCount);
             currentFrame++;
+            checkText.KeepRotation();
             yield return new WaitForFixedUpdate();
         }
     }
@@ -82,12 +86,14 @@ public class CoinController : MonoBehaviour
         {
             transform.rotation = Quaternion.Lerp(whitePrepare, whiteSide, (float)currentFrame / (float)frameCount);
             currentFrame++;
+            checkText.KeepRotation();
             yield return new WaitForFixedUpdate();
         }
         while (!isWhite && currentFrame < frameCount)
         {
             transform.rotation = Quaternion.Lerp(blackPrepare, blackSide, (float)currentFrame / (float)frameCount);
             currentFrame++;
+            checkText.KeepRotation();
             yield return new WaitForFixedUpdate();
         }
     }
@@ -100,12 +106,14 @@ public class CoinController : MonoBehaviour
         {
             transform.rotation = Quaternion.Lerp(whitePrepare, blackSide, (float)currentFrame / (float)frameCount);
             currentFrame++;
+            checkText.KeepRotation();
             yield return new WaitForFixedUpdate();
         }
         while (!isWhite && currentFrame < frameCount)
         {
             transform.rotation = Quaternion.Lerp(blackPrepare, whiteSide, (float)currentFrame / (float)frameCount);
             currentFrame++;
+            checkText.KeepRotation();
             yield return new WaitForFixedUpdate();
         }
         if (currentFrame == frameCount) isWhite = !isWhite;

@@ -6,7 +6,7 @@ public class GameController : MonoBehaviour
 {
     private string[,] board;
     private string[] boardEdges;
-    public GameObject menu;
+    public GameObject menu, gameOverMenu;
     public GameObject pieces, piecePrefab, tiles;
     private List<PieceController> pieceControllers = new List<PieceController>();
     private GameObject currentlyEnabledTile, currentlyEnabledPiece;
@@ -41,6 +41,7 @@ public class GameController : MonoBehaviour
         board = new string[4, 16];
         boardEdges = new string[2];
         menu.SetActive(true);
+        gameOverMenu.SetActive(true);
         SetupPieces();
         PlacePieces();
         GlobalEventManager.OnPieceSelected += SelectForMove;
@@ -224,12 +225,19 @@ public class GameController : MonoBehaviour
                     startX = move.GetEndX();
                 }
 
-                GlobalEventManager.SendMoveMade();    
+                GlobalEventManager.SendMoveMade();
                 NextTurn();
-                if (IsPlayerChecked(WhitesTurnToMove, board) && IsPlayerDoomed(WhitesTurnToMove))
+                if (IsPlayerChecked(WhitesTurnToMove, board))
                 {
-                    GlobalEventManager.SendPlayerCheckmated(WhitesTurnToMove ? "w" : "b");
-                    return;
+                    if (IsPlayerDoomed(WhitesTurnToMove))
+                    {
+                        GlobalEventManager.SendPlayerCheckmated(WhitesTurnToMove ? "w" : "b");
+                        return;
+                    }
+                    else
+                    {
+                        GlobalEventManager.SendCheckShow();
+                    }
                 }
                 if (IsPlayerDoomed(WhitesTurnToMove))
                 {

@@ -33,3 +33,17 @@
     border-top-width: 1px;
     border-bottom-width: 1px;
 }
+
+.whiteQueen {
+    width: 25%;
+    height: 100%;
+    background-image: url('project://database/Assets/UI/Textures/EscapeMenu/escape_wq.gif?fileID=2800000&guid=ca859d6972717c2448affbbd4a0c093c&type=3#escape_wq');
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.blackQueen {
+    width: 25%;
+    height: 100%;
+    background-image: url('project://database/Assets/UI/Textures/EscapeMenu/escape_bq.gif?fileID=2800000&guid=70756b0008ff3f845b42731d582766e9&type=3#escape_bq');
+    -unity-background-scale-mode: scale-to-fit;
+}
