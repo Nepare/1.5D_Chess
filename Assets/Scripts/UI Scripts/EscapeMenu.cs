@@ -20,6 +20,10 @@ public class EscapeMenu : MonoBehaviour
         btnContinue.clicked += Continue;
         btnRestart.clicked += Restart;
         btnTitleScreen.clicked += TitleScreen;
+
+        btnContinue.text = LanguageController.GetWord("Escape.Continue");
+        btnRestart.text = LanguageController.GetWord("Escape.Restart");
+        btnTitleScreen.text = LanguageController.GetWord("Escape.Quit");
     }
 
     private void Update() {

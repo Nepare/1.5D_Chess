@@ -113,7 +113,7 @@ public class BoardRotation : MonoBehaviour
 
     private void ReturnToDefault()
     {
-        camTranformer.localPosition = new Vector3(0, 9f, 0);
+        camTranformer.localPosition = new Vector3(0, 10f, 0);
         camTranformer.rotation = startRotationCamera;
         transform.rotation = startRotationBoard;
     }

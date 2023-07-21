@@ -55,3 +55,64 @@
     margin-top: 4px;
     padding-top: 9px;
 }
+
+.OptionsButton {
+    width: 40%;
+    height: 90%;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 1%;
+    font-size: 100%;
+    background-color: rgba(56, 88, 224, 0.41);
+    border-top-left-radius: 1px;
+    border-bottom-left-radius: 1px;
+    border-top-right-radius: 1px;
+    border-bottom-right-radius: 1px;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-left-color: rgb(241, 150, 21);
+    border-right-color: rgb(241, 150, 21);
+    border-top-color: rgb(241, 150, 21);
+    border-bottom-color: rgb(241, 150, 21);
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    -unity-font-style: normal;
+    color: rgb(255, 255, 255);
+    -unity-text-align: middle-center;
+}
+
+.OptionsButton:hover {
+    width: 40%;
+    height: 90%;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 1%;
+    font-size: 100%;
+    background-color: rgba(56, 88, 224, 0.74);
+    border-top-left-radius: 1px;
+    border-bottom-left-radius: 1px;
+    border-top-right-radius: 1px;
+    border-bottom-right-radius: 1px;
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgb(241, 150, 21);
+    border-right-color: rgb(241, 150, 21);
+    border-top-color: rgb(241, 150, 21);
+    border-bottom-color: rgb(241, 150, 21);
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    -unity-font-style: normal;
+    color: rgb(255, 255, 255);
+    -unity-text-align: middle-center;
+    letter-spacing: 5px;
+}

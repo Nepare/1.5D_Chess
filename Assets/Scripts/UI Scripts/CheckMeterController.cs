@@ -8,7 +8,7 @@ public class CheckMeterController : MonoBehaviour
     private void Awake() {
         Hide();
 
-        transform.Rotate(new Vector3(0, 0, 180));
+        transform.Rotate(new Vector3(180, 0, 180));
         startRotation = transform.rotation;
 
         GlobalEventManager.OnCheckShown += Show;
@@ -22,7 +22,7 @@ public class CheckMeterController : MonoBehaviour
 
     private void Show()
     {
-        gameObject.GetComponent<Text>().text = "CHECKED!";
+        gameObject.GetComponent<Text>().text = LanguageController.GetWord("HUD.Check");
     }
 
     public void KeepRotation()

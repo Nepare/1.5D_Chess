@@ -52,16 +52,16 @@ public class GameOverMenu : MonoBehaviour
 
     private void HandleCheckmate(string message)
     {
-        lblResult.text = "CHECKMATE";
+        lblResult.text = LanguageController.GetWord("GameOver.Checkmate");
         if (message[0] == 'w')
         {
-            lblPlayer.text = "The Black have won!";
+            lblPlayer.text = LanguageController.GetWord("GameOver.BlackWon");
             pieceLeft.style.backgroundImage = new StyleBackground(Background.FromTexture2D(blackQueen));
             pieceRight.style.backgroundImage = new StyleBackground(Background.FromTexture2D(blackQueen));
         }
         else
         {
-            lblPlayer.text = "The White have won!";
+            lblPlayer.text = LanguageController.GetWord("GameOver.WhiteWon");
             pieceLeft.style.backgroundImage = new StyleBackground(Background.FromTexture2D(whiteQueen));
             pieceRight.style.backgroundImage = new StyleBackground(Background.FromTexture2D(whiteQueen));
         }
@@ -70,16 +70,16 @@ public class GameOverMenu : MonoBehaviour
 
     private void HandleStalemate(string message)
     {
-        lblResult.text = "STALEMATE";
+        lblResult.text = LanguageController.GetWord("GameOver.Stalemate");
         if (message[0] == 'w')
         {
-            lblPlayer.text = "The White cannot move!";
+            lblPlayer.text = LanguageController.GetWord("GameOver.WhiteStalemate");
             pieceLeft.style.backgroundImage = new StyleBackground(Background.FromTexture2D(blackQueen));
             pieceRight.style.backgroundImage = new StyleBackground(Background.FromTexture2D(whiteQueen));
         }
         else
         {
-            lblPlayer.text = "The Black cannot move!";
+            lblPlayer.text = LanguageController.GetWord("GameOver.BlackStalemate");
             pieceLeft.style.backgroundImage = new StyleBackground(Background.FromTexture2D(whiteQueen));
             pieceRight.style.backgroundImage = new StyleBackground(Background.FromTexture2D(blackQueen));
         }

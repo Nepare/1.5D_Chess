@@ -5,8 +5,9 @@ using UnityEngine;
 public class MenuController : MonoBehaviour
 {
     public GameObject piecePrefab;
+    [SerializeField] GameObject uiDoc;
     private List<FloatingPiece> floatingPieces;
-    private List<string> pieceNames = new List<string>() {"king", "queen", "knight", "bishop", "rook", "pawn"};
+    private List<string> pieceNames = new List<string>() { "king", "queen", "knight", "bishop", "rook", "pawn" };
     private float movingSpeed;
     private class FloatingPiece
     {
@@ -30,6 +31,7 @@ public class MenuController : MonoBehaviour
         movingSpeed = 0.1f;
 
         floatingPieces = new List<FloatingPiece>();
+        LanguageController.ReadTable();
         AddPiecesToBackground(20);
     }
 
@@ -39,6 +41,10 @@ public class MenuController : MonoBehaviour
             floatingPieces[i].SetTheta(floatingPieces[i].theta + floatingPieces[i].direction * Time.deltaTime * movingSpeed);
             floatingPieces[i].SetPhi(floatingPieces[i].phi + floatingPieces[i].direction * Time.deltaTime * movingSpeed);
             floatingPieces[i].pieceObj.transform.position = GetPolarCoords(floatingPieces[i].radius, floatingPieces[i].theta, floatingPieces[i].phi);
+        }
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            uiDoc.GetComponent<UIBehaviour>().CloseOptions();
         }
     }
 

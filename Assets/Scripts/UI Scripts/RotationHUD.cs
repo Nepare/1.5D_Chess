@@ -135,12 +135,12 @@ public class RotationHUD : MonoBehaviour
         if (isVisibleHUD) 
         { 
             hudZone.visible = false;
-            btnToggle.text = "Show Camera Controls";
+            btnToggle.text = LanguageController.GetWord("HUD.ShowCameraControls");
         }
         else 
         {
             hudZone.visible = true;
-            btnToggle.text = "Hide Camera Controls";
+            btnToggle.text = LanguageController.GetWord("HUD.HideCameraControls");;
         }
         isVisibleHUD = !isVisibleHUD;
     }

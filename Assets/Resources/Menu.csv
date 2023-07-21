@@ -1,0 +1,19 @@
+Key,English,Belarusian
+Menu.Start,Start,Пачаць
+Menu.Options,Options,Налады
+Menu.Quit,Quit,Выйсці
+HUD.ShowCameraControls,Show Camera Controls,Паказаць Кантролер Камеры
+HUD.HideCameraControls,Hide Camera Controls,Схаваць Кантролер Камеры
+Escape.Continue,Continue,Працягнуць
+Escape.Restart,Restart,Новая гульня
+Escape.Quit,Quit to Title Screen,Выйсці ў Галоўнае Меню
+HUD.Check,CHECKED,ШАХ
+GameOver.Checkmate,CHECKMATE,МАТ
+GameOver.Stalemate,STALEMATE,ПАТ
+GameOver.WhiteWon,The White have won!,Белыя перамаглі!
+GameOver.BlackWon,The Black have won!,Чорныя перамаглі!
+GameOver.WhiteStalemate,The White cannot move!,Белыя не могуць хадзіць!
+GameOver.BlackStalemate,The Black cannot move!,Чорныя не могуць хадзіць!
+Menu.Language,Language,Мова
+Menu.Apply,Apply Changes,Прыняць Змены
+Menu.Default,Revert to Default,Па Змаўчанні
