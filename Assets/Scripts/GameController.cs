@@ -115,29 +115,35 @@ public class GameController : MonoBehaviour
 
     private void SetupPieces()
     {
-        pieceList.Add(new pieceStruct("king", 1, 0, true));
-        pieceList.Add(new pieceStruct("king", 1, 15, false));
+        if (SetUpConfigurer.SETUP_CONFIGURATION.Keys.Count == 0) 
+            SetUpConfigurer.SETUP_CONFIGURATION = SetUpConfigurer.GetDefaultBoardConfiguration();
 
-        pieceList.Add(new pieceStruct("bishop", 0, 0, true));
-        pieceList.Add(new pieceStruct("bishop", 2, 15, false));
+        foreach (var tileName in SetUpConfigurer.SETUP_CONFIGURATION.Keys)
+        {
+            int x_coord = 0, y_coord = 0;
+            if (tileName[0] == 'l') x_coord = 0;
+            if (tileName[0] == 't') x_coord = 1;
+            if (tileName[0] == 'r') x_coord = 2;
+            if (tileName[0] == 'b') x_coord = 3;
+            if (tileName[0] == 'e') x_coord = -1;
 
-        pieceList.Add(new pieceStruct("knight", 2, 0, true));
-        pieceList.Add(new pieceStruct("knight", 0, 15, false));
+            y_coord = System.Convert.ToInt32(tileName.Substring(1));
+            if (x_coord == -1) y_coord = (y_coord == 0) ? 1 : -1;
 
-        pieceList.Add(new pieceStruct("rook", 3, 0, true));
-        pieceList.Add(new pieceStruct("rook", 3, 15, false));
-
-        pieceList.Add(new pieceStruct("pawn", 0, 1, true));
-        pieceList.Add(new pieceStruct("pawn", 1, 1, true));
-        pieceList.Add(new pieceStruct("pawn", 2, 1, true));
-        pieceList.Add(new pieceStruct("pawn", 3, 1, true));
-        pieceList.Add(new pieceStruct("pawn", 0, 14, false));
-        pieceList.Add(new pieceStruct("pawn", 1, 14, false));
-        pieceList.Add(new pieceStruct("pawn", 2, 14, false));
-        pieceList.Add(new pieceStruct("pawn", 3, 14, false));
-
-        pieceList.Add(new pieceStruct("queen", -1, 1, true));
-        pieceList.Add(new pieceStruct("queen", -1, -1, false));
+            bool isWhite = (SetUpConfigurer.SETUP_CONFIGURATION[tileName][0] == 'w') ? true : false;
+            string pieceName = "";
+            switch (SetUpConfigurer.SETUP_CONFIGURATION[tileName][1])
+            {
+                case 'k': pieceName = "king"; break;
+                case 'q': pieceName = "queen"; break;
+                case 'b': pieceName = "bishop"; break;
+                case 'h': pieceName = "knight"; break;
+                case 'r': pieceName = "rook"; break;
+                case 'p': pieceName = "pawn"; break;
+                default: pieceName = "pawn"; break;
+            }
+            pieceList.Add(new pieceStruct(pieceName, x_coord, y_coord, isWhite));
+        }
 
         List<string> pieceNames = new List<string>();
         foreach (var piece in pieceList)

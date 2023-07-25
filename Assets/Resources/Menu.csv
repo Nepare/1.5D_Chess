@@ -5,7 +5,7 @@ Menu.Quit,Quit,Выйсці
 HUD.ShowCameraControls,Show Camera Controls,Паказаць Кантролер Камеры
 HUD.HideCameraControls,Hide Camera Controls,Схаваць Кантролер Камеры
 Escape.Continue,Continue,Працягнуць
-Escape.Restart,Restart,Новая гульня
+Escape.Restart,Restart,Новая Гульня
 Escape.Quit,Quit to Title Screen,Выйсці ў Галоўнае Меню
 HUD.Check,CHECKED,ШАХ
 GameOver.Checkmate,CHECKMATE,МАТ
@@ -17,3 +17,6 @@ GameOver.BlackStalemate,The Black cannot move!,Чорныя не могуць х
 Menu.Language,Language,Мова
 Menu.Apply,Apply Changes,Прыняць Змены
 Menu.Default,Revert to Default,Па Змаўчанні
+Menu.ManageControls,Manage Controls,Налады Кіравання
+Menu.ManageBoard,Manage Board,Налады Дошкі
+Menu.DefaultBoard,Default Board,Дошка па Змаўчанні

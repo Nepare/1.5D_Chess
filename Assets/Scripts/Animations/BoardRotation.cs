@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BoardRotation : MonoBehaviour
@@ -12,6 +10,8 @@ public class BoardRotation : MonoBehaviour
     private Camera _cam;
     private Transform camTranformer;
     private Quaternion startRotationCamera, startRotationBoard;
+    [SerializeField] private Material[] skyboxMaterials;
+
 
     private int rotatingAlongAxis, rotatingClockwise, movingTo;
 
@@ -21,6 +21,8 @@ public class BoardRotation : MonoBehaviour
         camTranformer = _cam.gameObject.transform;
         startRotationCamera = camTranformer.rotation;
         startRotationBoard = transform.rotation;
+
+        RenderSettings.skybox = skyboxMaterials[LanguageController.SKYBOX_ID];
     }
 
     private void Update() {

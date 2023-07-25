@@ -116,3 +116,171 @@
     -unity-text-align: middle-center;
     letter-spacing: 5px;
 }
+
+.skyboxButton {
+    border-left-color: rgb(241, 150, 21);
+    border-right-color: rgb(241, 150, 21);
+    border-top-color: rgb(241, 150, 21);
+    border-bottom-color: rgb(241, 150, 21);
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    width: 25%;
+    height: 80%;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    background-color: rgba(188, 188, 188, 0);
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.skyboxButton:hover {
+    border-left-color: rgb(241, 150, 21);
+    border-right-color: rgb(241, 150, 21);
+    border-top-color: rgb(241, 150, 21);
+    border-bottom-color: rgb(241, 150, 21);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    width: 25%;
+    height: 80%;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    background-color: rgba(188, 188, 188, 0.2);
+}
+
+.edgeTile {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 19%;
+    width: 55%;
+    background-color: rgb(192, 192, 192);
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+}
+
+.edgeTile:hover {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 19%;
+    width: 55%;
+    background-color: rgb(192, 192, 192);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgba(241, 150, 21, 255);
+    border-right-color: rgba(241, 150, 21, 255);
+    border-top-color: rgba(241, 150, 21, 255);
+    border-bottom-color: rgba(241, 150, 21, 255);
+}
+
+.tile {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    width: 6.25%;
+    height: 100%;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    background-color: rgb(255, 255, 255);
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.tile:hover {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    width: 6.25%;
+    height: 100%;
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    background-color: rgb(255, 255, 255);
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-left-color: rgba(241, 150, 21, 255);
+    border-right-color: rgba(241, 150, 21, 255);
+    border-top-color: rgba(241, 150, 21, 255);
+    border-bottom-color: rgba(241, 150, 21, 255);
+}
+
+.buttonPiece {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    background-image: url('project://database/Assets/UI/Textures/EscapeMenu/escape_wk.png?fileID=2800000&guid=cfb2c0d5a62a62449a25c1b6e18822be&type=3#escape_wk');
+    -unity-background-scale-mode: scale-to-fit;
+    background-color: rgba(188, 188, 188, 0);
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-left-color: rgba(241, 150, 21, 255);
+    border-right-color: rgba(241, 150, 21, 255);
+    border-top-color: rgba(241, 150, 21, 255);
+    border-bottom-color: rgba(241, 150, 21, 255);
+}
+
+.buttonPiece:hover {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    background-image: url('project://database/Assets/UI/Textures/EscapeMenu/escape_wk.png?fileID=2800000&guid=cfb2c0d5a62a62449a25c1b6e18822be&type=3#escape_wk');
+    -unity-background-scale-mode: scale-to-fit;
+    background-color: rgba(56, 88, 224, 0.2);
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-left-color: rgba(241, 150, 21, 255);
+    border-right-color: rgba(241, 150, 21, 255);
+    border-top-color: rgba(241, 150, 21, 255);
+    border-bottom-color: rgba(241, 150, 21, 255);
+}

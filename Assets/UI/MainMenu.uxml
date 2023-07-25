@@ -6,14 +6,133 @@
             <ui:Button text="Options" display-tooltip-when-elided="true" name="ButtonOptions" class="MainMenuButton" style="left: 12px; bottom: 12px; position: relative; -unity-text-align: middle-center; height: 10%; width: 85%; padding-bottom: 0; padding-top: 0;" />
             <ui:Button text="Quit" display-tooltip-when-elided="true" name="ButtonQuit" class="MainMenuButton" style="left: 12px; bottom: 12px; position: relative; height: 10%; width: 85%; padding-top: 0; padding-bottom: 0;" />
         </ui:VisualElement>
-        <ui:VisualElement name="optionsZone" style="height: 90%; width: 66%; justify-content: flex-start; background-color: rgba(56, 88, 224, 0.41); margin-left: 2.5%; margin-right: 2.5%; margin-top: 2.5%; margin-bottom: 2.5%;">
-            <ui:VisualElement name="upperDeck" style="height: 15%; flex-direction: row;">
+        <ui:VisualElement name="optionsZone" style="height: 90%; width: 66%; justify-content: flex-start; background-color: rgba(56, 88, 224, 0.1); margin-left: 2.5%; margin-right: 2.5%; margin-top: 2.5%; margin-bottom: 2.5%; border-left-color: rgb(241, 150, 21); border-right-color: rgb(241, 150, 21); border-top-color: rgb(241, 150, 21); border-bottom-color: rgb(241, 150, 21);">
+            <ui:VisualElement name="upperDeck" style="height: 15%; flex-direction: row; width: 100%;">
                 <ui:VisualElement name="langDeck" style="width: 50%; height: 100%; justify-content: space-around;">
                     <ui:DropdownField label="Language" index="0" choices="English, Беларуская" name="langChooser" style="-unity-text-align: middle-center; font-size: 50%; -unity-font-style: normal; color: rgb(255, 255, 255); height: 80%; width: 100%;" />
                 </ui:VisualElement>
-                <ui:VisualElement name="skyboxDeck" style="width: 50%; height: 100%;" />
+                <ui:VisualElement name="skyboxDeck" style="width: 50%; height: 100%; flex-direction: row; justify-content: space-around; margin-left: 2.5%; margin-right: 2.5%; align-items: center;">
+                    <ui:Button display-tooltip-when-elided="true" name="skybox1" class="skyboxButton" style="background-image: url(&apos;project://database/Assets/UI/Textures/MainMenu/Skyboxes/skybox1.png?fileID=2800000&amp;guid=ce620a5d94d55684ab3c97eefbf4fca5&amp;type=3#skybox1&apos;); -unity-background-scale-mode: scale-to-fit;" />
+                    <ui:Button display-tooltip-when-elided="true" name="skybox2" class="skyboxButton" style="background-image: url(&apos;project://database/Assets/UI/Textures/MainMenu/Skyboxes/skybox2.png?fileID=2800000&amp;guid=5ca16abb3b181074cb0401bf632091dc&amp;type=3#skybox2&apos;); -unity-background-scale-mode: scale-to-fit;" />
+                    <ui:Button display-tooltip-when-elided="true" name="skybox3" class="skyboxButton" style="background-image: url(&apos;project://database/Assets/UI/Textures/MainMenu/Skyboxes/skybox3.png?fileID=2800000&amp;guid=048693aff9176a74495b1e0e359519d1&amp;type=3#skybox3&apos;); -unity-background-scale-mode: scale-to-fit;" />
+                </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="lowerDeck" style="height: 77.5%;" />
+            <ui:VisualElement name="lowerDeck" style="height: 77.5%;">
+                <ui:VisualElement name="innerHeader" style="height: 10%; flex-direction: row; justify-content: space-around; align-items: center;">
+                    <ui:Button text="Manage Board" display-tooltip-when-elided="true" name="ButtonManageBoard" class="OptionsButton" style="margin-top: 1%; width: 50%; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0;" />
+                    <ui:Button text="Manage Controls" display-tooltip-when-elided="true" name="ButtonManageControls" class="OptionsButton" style="margin-top: 1%; width: 50%; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="innerField" style="height: 90%;">
+                    <ui:VisualElement name="boardManagement" style="width: 100%; height: 100%; background-color: rgba(56, 88, 224, 0.2);">
+                        <ui:VisualElement name="tileZone" style="height: 60%; flex-direction: row;">
+                            <ui:VisualElement name="leftEdge" style="height: 100%; width: 10%; justify-content: center; align-items: center;">
+                                <ui:Button display-tooltip-when-elided="true" name="leftEdgeTile" class="edgeTile" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="mainBody" style="width: 80%; height: 100%; align-items: center; justify-content: center;">
+                                <ui:VisualElement name="boardTable" style="width: 95%; height: 100%; margin-left: 2.5%; margin-right: 2.5%; margin-top: 5%; margin-bottom: 5%;">
+                                    <ui:VisualElement name="rowLeft" style="flex-direction: row; height: 25%; width: 100%;">
+                                        <ui:Button display-tooltip-when-elided="true" name="l1" class="tile" />
+                                        <ui:Button display-tooltip-when-elided="true" name="l2" class="tile" style="background-color: rgb(0, 0, 0);" />
+                                        <ui:Button display-tooltip-when-elided="true" name="l3" class="tile" />
+                                        <ui:Button display-tooltip-when-elided="true" name="l4" class="tile" style="background-color: rgb(0, 0, 0);" />
+                                        <ui:Button display-tooltip-when-elided="true" name="l5" class="tile" />
+                                        <ui:Button display-tooltip-when-elided="true" name="l6" class="tile" style="background-color: rgb(0, 0, 0);" />
+                                        <ui:Button display-tooltip-when-elided="true" name="l7" class="tile" />
+                                        <ui:Button display-tooltip-when-elided="true" name="l8" class="tile" style="background-color: rgb(0, 0, 0);" />
+                                        <ui:Button display-tooltip-when-elided="true" name="l9" class="tile" />
+                                        <ui:Button display-tooltip-when-elided="true" name="l10" class="tile" style="background-color: rgb(0, 0, 0);" />
+                                        <ui:Button display-tooltip-when-elided="true" name="l11" class="tile" />
+                                        <ui:Button display-tooltip-when-elided="true" name="l12" class="tile" style="background-color: rgb(0, 0, 0);" />
+                                        <ui:Button display-tooltip-when-elided="true" name="l13" class="tile" />
+                                        <ui:Button display-tooltip-when-elided="true" name="l14" class="tile" style="background-color: rgb(0, 0, 0);" />
+                                        <ui:Button display-tooltip-when-elided="true" name="l15" class="tile" />
+                                        <ui:Button display-tooltip-when-elided="true" name="l16" class="tile" style="background-color: rgb(0, 0, 0);" />
+                                    </ui:VisualElement>
+                                    <ui:VisualElement name="rowTop" style="flex-direction: row; height: 25%; width: 100%;">
+                                        <ui:Button display-tooltip-when-elided="true" name="t1" class="tile" style="background-color: rgb(0, 0, 0);" />
+                                        <ui:Button display-tooltip-when-elided="true" name="t2" class="tile" />
+                                        <ui:Button display-tooltip-when-elided="true" name="t3" class="tile" style="background-color: rgb(0, 0, 0);" />
+                                        <ui:Button display-tooltip-when-elided="true" name="t4" class="tile" />
+                                        <ui:Button display-tooltip-when-elided="true" name="t5" class="tile" style="background-color: rgb(0, 0, 0);" />
+                                        <ui:Button display-tooltip-when-elided="true" name="6" class="tile" />
+                                        <ui:Button display-tooltip-when-elided="true" name="t7" class="tile" style="background-color: rgb(0, 0, 0);" />
+                                        <ui:Button display-tooltip-when-elided="true" name="t8" class="tile" />
+                                        <ui:Button display-tooltip-when-elided="true" name="t9" class="tile" style="background-color: rgb(0, 0, 0);" />
+                                        <ui:Button display-tooltip-when-elided="true" name="t10" class="tile" />
+                                        <ui:Button display-tooltip-when-elided="true" name="t11" class="tile" style="background-color: rgb(0, 0, 0);" />
+                                        <ui:Button display-tooltip-when-elided="true" name="t12" class="tile" />
+                                        <ui:Button display-tooltip-when-elided="true" name="t13" class="tile" style="background-color: rgb(0, 0, 0);" />
+                                        <ui:Button display-tooltip-when-elided="true" name="t14" class="tile" />
+                                        <ui:Button display-tooltip-when-elided="true" name="t15" class="tile" style="background-color: rgb(0, 0, 0);" />
+                                        <ui:Button display-tooltip-when-elided="true" name="t16" class="tile" />
+                                    </ui:VisualElement>
+                                    <ui:VisualElement name="rowRight" style="flex-direction: row; height: 25%; width: 100%;">
+                                        <ui:Button display-tooltip-when-elided="true" name="r1" class="tile" />
+                                        <ui:Button display-tooltip-when-elided="true" name="r2" class="tile" style="background-color: rgb(0, 0, 0);" />
+                                        <ui:Button display-tooltip-when-elided="true" name="r3" class="tile" />
+                                        <ui:Button display-tooltip-when-elided="true" name="r4" class="tile" style="background-color: rgb(0, 0, 0);" />
+                                        <ui:Button display-tooltip-when-elided="true" name="r5" class="tile" />
+                                        <ui:Button display-tooltip-when-elided="true" name="r6" class="tile" style="background-color: rgb(0, 0, 0);" />
+                                        <ui:Button display-tooltip-when-elided="true" name="r7" class="tile" />
+                                        <ui:Button display-tooltip-when-elided="true" name="r8" class="tile" style="background-color: rgb(0, 0, 0);" />
+                                        <ui:Button display-tooltip-when-elided="true" name="r9" class="tile" />
+                                        <ui:Button display-tooltip-when-elided="true" name="r10" class="tile" style="background-color: rgb(0, 0, 0);" />
+                                        <ui:Button display-tooltip-when-elided="true" name="r11" class="tile" />
+                                        <ui:Button display-tooltip-when-elided="true" name="r12" class="tile" style="background-color: rgb(0, 0, 0);" />
+                                        <ui:Button display-tooltip-when-elided="true" name="r13" class="tile" />
+                                        <ui:Button display-tooltip-when-elided="true" name="r14" class="tile" style="background-color: rgb(0, 0, 0);" />
+                                        <ui:Button display-tooltip-when-elided="true" name="r15" class="tile" />
+                                        <ui:Button display-tooltip-when-elided="true" name="r16" class="tile" style="background-color: rgb(0, 0, 0);" />
+                                    </ui:VisualElement>
+                                    <ui:VisualElement name="rowBottom" style="flex-direction: row; height: 25%; width: 100%;">
+                                        <ui:Button display-tooltip-when-elided="true" name="b1" class="tile" style="background-color: rgb(0, 0, 0);" />
+                                        <ui:Button display-tooltip-when-elided="true" name="b2" class="tile" />
+                                        <ui:Button display-tooltip-when-elided="true" name="b3" class="tile" style="background-color: rgb(0, 0, 0);" />
+                                        <ui:Button display-tooltip-when-elided="true" name="b4" class="tile" />
+                                        <ui:Button display-tooltip-when-elided="true" name="b5" class="tile" style="background-color: rgb(0, 0, 0);" />
+                                        <ui:Button display-tooltip-when-elided="true" name="b6" class="tile" />
+                                        <ui:Button display-tooltip-when-elided="true" name="b7" class="tile" style="background-color: rgb(0, 0, 0);" />
+                                        <ui:Button display-tooltip-when-elided="true" name="b8" class="tile" />
+                                        <ui:Button display-tooltip-when-elided="true" name="b9" class="tile" style="background-color: rgb(0, 0, 0);" />
+                                        <ui:Button display-tooltip-when-elided="true" name="b10" class="tile" />
+                                        <ui:Button display-tooltip-when-elided="true" name="b11" class="tile" style="background-color: rgb(0, 0, 0);" />
+                                        <ui:Button display-tooltip-when-elided="true" name="b12" class="tile" />
+                                        <ui:Button display-tooltip-when-elided="true" name="b13" class="tile" style="background-color: rgb(0, 0, 0);" />
+                                        <ui:Button display-tooltip-when-elided="true" name="b14" class="tile" />
+                                        <ui:Button display-tooltip-when-elided="true" name="b15" class="tile" style="background-color: rgb(0, 0, 0);" />
+                                        <ui:Button display-tooltip-when-elided="true" name="b16" class="tile" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:VisualElement name="rightEdge" style="width: 10%; height: 100%; justify-content: center; align-items: center;">
+                                <ui:Button display-tooltip-when-elided="true" name="rightEdgeTile" class="edgeTile" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="pieceZone" style="height: 25%; justify-content: space-between; align-items: center;">
+                            <ui:VisualElement name="whiteRow" style="height: 50%; width: 100%; flex-direction: row; justify-content: center; align-items: center;">
+                                <ui:Button display-tooltip-when-elided="true" name="wk" class="buttonPiece" />
+                                <ui:Button display-tooltip-when-elided="true" name="wq" class="buttonPiece" style="background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_wq.gif?fileID=2800000&amp;guid=ca859d6972717c2448affbbd4a0c093c&amp;type=3#escape_wq&apos;);" />
+                                <ui:Button display-tooltip-when-elided="true" name="wb" class="buttonPiece" style="background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_wb.gif?fileID=2800000&amp;guid=b3bc740dcb2519d4ca9d99d7fe97d16e&amp;type=3#escape_wb&apos;);" />
+                                <ui:Button display-tooltip-when-elided="true" name="wh" class="buttonPiece" style="background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_wh.gif?fileID=2800000&amp;guid=38a195e4dd0bb2e4a806e97add8e2f89&amp;type=3#escape_wh&apos;);" />
+                                <ui:Button display-tooltip-when-elided="true" name="wr" class="buttonPiece" style="background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_wr.gif?fileID=2800000&amp;guid=992d6e7026954eb4c8effaf4bdf949ab&amp;type=3#escape_wr&apos;);" />
+                                <ui:Button display-tooltip-when-elided="true" name="wp" class="buttonPiece" style="background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_wp.gif?fileID=2800000&amp;guid=15394d41ddfa8494b819bd4c0317c6c2&amp;type=3#escape_wp&apos;);" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="blackRow" style="width: 100%; height: 50%; flex-direction: row; justify-content: center;">
+                                <ui:Button display-tooltip-when-elided="true" name="bk" class="buttonPiece" style="background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_bk.gif?fileID=2800000&amp;guid=940d68f78ca5c094c84bb14b3e2e5101&amp;type=3#escape_bk&apos;);" />
+                                <ui:Button display-tooltip-when-elided="true" name="bq" class="buttonPiece" style="background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_bq.gif?fileID=2800000&amp;guid=70756b0008ff3f845b42731d582766e9&amp;type=3#escape_bq&apos;);" />
+                                <ui:Button display-tooltip-when-elided="true" name="bb" class="buttonPiece" style="background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_bb.gif?fileID=2800000&amp;guid=fa82cf81d0f46644fb0fa1bddb54a938&amp;type=3#escape_bb&apos;);" />
+                                <ui:Button display-tooltip-when-elided="true" name="bh" class="buttonPiece" style="background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_bh.gif?fileID=2800000&amp;guid=9a64d0d0773ebfc4689d437c7482c9d0&amp;type=3#escape_bh&apos;);" />
+                                <ui:Button display-tooltip-when-elided="true" name="br" class="buttonPiece" style="background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_br.gif?fileID=2800000&amp;guid=54fd0350a91c93d42a81466934c8a7a3&amp;type=3#escape_br&apos;);" />
+                                <ui:Button display-tooltip-when-elided="true" name="bp" class="buttonPiece" style="background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_bp.gif?fileID=2800000&amp;guid=42f204c8d81353349ad8f8bb6fafc5cc&amp;type=3#escape_bp&apos;);" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="buttonZone" style="height: 15%; flex-direction: row; justify-content: space-around; align-items: center;">
+                            <ui:Button text="Default Board" display-tooltip-when-elided="true" name="buttonDefaultBoard" class="OptionsButton" style="margin-bottom: 0; height: 80%; width: 45%;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="controlManagement" style="width: 100%; height: 0;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
             <ui:VisualElement name="lowestDeck" style="height: 7.5%; flex-direction: row; justify-content: space-around;">
                 <ui:Button text="Apply Changes" display-tooltip-when-elided="true" name="Apply" class="OptionsButton" />
                 <ui:Button text="Revert to Default" display-tooltip-when-elided="true" name="Default" class="OptionsButton" />
