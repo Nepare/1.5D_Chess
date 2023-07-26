@@ -20,3 +20,6 @@ Menu.Default,Revert to Default,Па Змаўчанні
 Menu.ManageControls,Manage Controls,Налады Кіравання
 Menu.ManageBoard,Manage Board,Налады Дошкі
 Menu.DefaultBoard,Default Board,Дошка па Змаўчанні
+Menu.BoardControlHint,Select pieces;\nClick on tiles;\nClick without selected\npiece to clear the tile,Выберыце фігуру;\nНацісніце на клетку;\nНацісніце на клетку\nбез выбранай фігуры\nкаб ачысціць яе
+Menu.BoardControlKingEdge,The King can't\nbe placed\nin reserve!,Кароль не\nможа быць\nу рэзерве!
+Menu.BoardControlKingAbsent,There must\nbe two Kings\non the board!,На дошцы\nпавінна быць\nдва каралі!

@@ -6,11 +6,13 @@ public class UIBehaviour : MonoBehaviour
 {   
     private Button buttonStart, buttonQuit, buttonOptions, buttonApply, buttonDefault, buttonSkybox1, buttonSkybox2, buttonSkybox3;
     private Button buttonManageBoard, buttonManageControls, buttonDefaultBoard;
-    private Button[] buttonPieces;
+    private static Button[] buttonPieces;
     DropdownField dropdownLang;
-    VisualElement root, boardManagement, controlManagement;
+    private VisualElement root, boardManagement, controlManagement;
+    private Label lblInstructions, lblWarnings;
     private bool optionsOpen;
     private int skyboxChosen = 0;
+    private System.Collections.Generic.Dictionary<string, string> boardConfig;
 
     private void OnEnable() {
         root = GetComponent<UIDocument>().rootVisualElement;
@@ -33,6 +35,10 @@ public class UIBehaviour : MonoBehaviour
 
         boardManagement = root.Q<VisualElement>("boardManagement");
         controlManagement = root.Q<VisualElement>("controlManagement");
+        lblInstructions = root.Q<Label>("lblInstructions");
+        lblWarnings = root.Q<Label>("lblWarnings");
+
+        SetUpConfigurer.root = root;
 
         for (int i = 0; i < 12; i++)
         {
@@ -59,6 +65,7 @@ public class UIBehaviour : MonoBehaviour
 
         buttonManageBoard.clicked += ManageBoard;
         buttonManageControls.clicked += ManageControls;
+        buttonDefaultBoard.clicked += DefaultBoard;
 
         buttonPieces[0].clicked += ChoosePieceWk;
         buttonPieces[1].clicked += ChoosePieceWq;
@@ -77,6 +84,8 @@ public class UIBehaviour : MonoBehaviour
         dropdownLang.index = LanguageController.LANG_ID - 1;
         UpdateLanguage();
         CloseOptions();
+        SetUpBoardVisuals(SetUpConfigurer.SETUP_CONFIGURATION);
+        SetUpConfigurer.SubscribeAllTiles();
 
         switch (LanguageController.SKYBOX_ID)
         {
@@ -101,6 +110,10 @@ public class UIBehaviour : MonoBehaviour
         LanguageController.LANG_ID = dropdownLang.index + 1;
         LanguageController.SKYBOX_ID = skyboxChosen;
         UpdateLanguage();
+        if (SetUpConfigurer.bkPos != "" && SetUpConfigurer.wkPos != "")
+            SetUpConfigurer.UpdateSetUp();
+        else
+            root.Q<Label>("lblWarnings").text = LanguageController.GetWord("Menu.BoardControlKingAbsent");
     }
 
     private void Default()
@@ -110,6 +123,16 @@ public class UIBehaviour : MonoBehaviour
         dropdownLang.index = 0;
         UpdateLanguage();
         EnableSkybox1();
+        DefaultBoard();
+    }
+
+    private void DefaultBoard()
+    {
+        ClearBoardVisuals();
+        SetUpBoardVisuals(SetUpConfigurer.GetDefaultBoardConfiguration());
+        SetUpConfigurer.wkPos = "t0";
+        SetUpConfigurer.bkPos = "t15";
+        SetUpConfigurer.SETUP_CONFIGURATION = SetUpConfigurer.GetDefaultBoardConfiguration();
     }
 
     private void OptionsToggle()
@@ -147,6 +170,7 @@ public class UIBehaviour : MonoBehaviour
         buttonManageBoard.text = LanguageController.GetWord("Menu.ManageBoard");
         buttonManageControls.text = LanguageController.GetWord("Menu.ManageControls");
         buttonDefaultBoard.text = LanguageController.GetWord("Menu.DefaultBoard");
+        lblInstructions.text = LanguageController.GetWord("Menu.BoardControlHint");
     }
 
     private void DisableAllSkyboxes()
@@ -236,76 +260,88 @@ public class UIBehaviour : MonoBehaviour
     {
         UnchooseAllPieces();
         Borderify(buttonPieces[0], 2);
+        SetUpConfigurer.activePiece = "wk";
     }
 
     private void ChoosePieceBk()
     {
         UnchooseAllPieces();
         Borderify(buttonPieces[6], 2);
+        SetUpConfigurer.activePiece = "bk";
     }
 
     private void ChoosePieceWq()
     {
         UnchooseAllPieces();
         Borderify(buttonPieces[1], 2);
+        SetUpConfigurer.activePiece = "wq";
     }
 
     private void ChoosePieceBq()
     {
         UnchooseAllPieces();
         Borderify(buttonPieces[7], 2);
+        SetUpConfigurer.activePiece = "bq";
     }
 
     private void ChoosePieceWb()
     {
         UnchooseAllPieces();
         Borderify(buttonPieces[2], 2);
+        SetUpConfigurer.activePiece = "wb";
     }
 
     private void ChoosePieceBb()
     {
         UnchooseAllPieces();
         Borderify(buttonPieces[8], 2);
+        SetUpConfigurer.activePiece = "bb";
     }
 
     private void ChoosePieceWh()
     {
         UnchooseAllPieces();
         Borderify(buttonPieces[3], 2);
+        SetUpConfigurer.activePiece = "wh";
     }
 
     private void ChoosePieceBh()
     {
         UnchooseAllPieces();
         Borderify(buttonPieces[9], 2);
+        SetUpConfigurer.activePiece = "bh";
     }
 
     private void ChoosePieceWr()
     {
         UnchooseAllPieces();
         Borderify(buttonPieces[4], 2);
+        SetUpConfigurer.activePiece = "wr";
     }
 
     private void ChoosePieceBr()
     {
         UnchooseAllPieces();
         Borderify(buttonPieces[10], 2);
+        SetUpConfigurer.activePiece = "br";
     }
 
     private void ChoosePieceWp()
     {
         UnchooseAllPieces();
         Borderify(buttonPieces[5], 2);
+        SetUpConfigurer.activePiece = "wp";
     }
 
     private void ChoosePieceBp()
     {
         UnchooseAllPieces();
         Borderify(buttonPieces[11], 2);
+        SetUpConfigurer.activePiece = "bp";
     }
 
 
-    private void Borderify(Button button, int edgeWidth)
+    private static void Borderify(Button button, int edgeWidth)
     {
         button.style.borderBottomWidth = edgeWidth;
         button.style.borderTopWidth = edgeWidth;
@@ -313,7 +349,7 @@ public class UIBehaviour : MonoBehaviour
         button.style.borderRightWidth = edgeWidth;
     }
 
-    private void UnchooseAllPieces()
+    public static void UnchooseAllPieces()
     {
         for (int i = 0; i < buttonPieces.Length; i++)
         {
@@ -321,33 +357,33 @@ public class UIBehaviour : MonoBehaviour
         }
     }
 
-    private System.Collections.Generic.Dictionary<string, string> GetDefaultBoardConfiguration()
+    private void SetUpBoardVisuals(System.Collections.Generic.Dictionary<string, string> setup_dict)
     {
-        System.Collections.Generic.Dictionary<string, string> default_conf = new System.Collections.Generic.Dictionary<string, string>();
-        default_conf["l0"] = "wb";
-        default_conf["t0"] = "wk";
-        default_conf["r0"] = "wh";
-        default_conf["b0"] = "wr";
+        foreach (var tileName in setup_dict.Keys)
+        {
+            Texture2D currentTexture = GetTextureFromName(setup_dict[tileName]);
+            string new_y_coord = (System.Convert.ToInt32(tileName.Substring(1)) + 1).ToString();
+            Button currentTile = root.Q<Button>(tileName[0] + new_y_coord);
+            currentTile.style.backgroundImage = currentTexture;
+        }
+    }
 
-        default_conf["l1"] = "wp";
-        default_conf["t1"] = "wp";
-        default_conf["r1"] = "wp";
-        default_conf["b1"] = "wp";
+    private void ClearBoardVisuals()
+    {
+        root.Q<Button>("e1").style.backgroundImage = null;
+        root.Q<Button>("e2").style.backgroundImage = null;
+        for (int i = 1; i <= 16; i++)
+        {
+            root.Q<Button>("l" + i.ToString()).style.backgroundImage = null;
+            root.Q<Button>("t" + i.ToString()).style.backgroundImage = null;
+            root.Q<Button>("r" + i.ToString()).style.backgroundImage = null;
+            root.Q<Button>("b" + i.ToString()).style.backgroundImage = null;
+        }
+    }
 
-        default_conf["e0"] = "wq";
-
-        default_conf["l15"] = "bh";
-        default_conf["t15"] = "bk";
-        default_conf["r15"] = "bb";
-        default_conf["b15"] = "br";
-
-        default_conf["l14"] = "bp";
-        default_conf["t14"] = "bp";
-        default_conf["r14"] = "bp";
-        default_conf["b14"] = "bp";
-
-        default_conf["e1"] = "bq";
-
-        return default_conf;
+    public static Texture2D GetTextureFromName(string pieceName)
+    {
+        Texture2D currentTexture = Resources.Load<Texture2D>("escape_" + pieceName);
+        return currentTexture;
     }
 }

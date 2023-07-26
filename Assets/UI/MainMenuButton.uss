@@ -181,6 +181,7 @@
     border-right-width: 0;
     border-top-width: 0;
     border-bottom-width: 0;
+    -unity-background-scale-mode: scale-to-fit;
 }
 
 .edgeTile:hover {
@@ -199,10 +200,11 @@
     border-right-width: 2px;
     border-top-width: 2px;
     border-bottom-width: 2px;
-    border-left-color: rgba(241, 150, 21, 255);
-    border-right-color: rgba(241, 150, 21, 255);
-    border-top-color: rgba(241, 150, 21, 255);
-    border-bottom-color: rgba(241, 150, 21, 255);
+    border-left-color: rgb(241, 150, 21);
+    border-right-color: rgb(241, 150, 21);
+    border-top-color: rgb(241, 150, 21);
+    border-bottom-color: rgb(241, 150, 21);
+    -unity-background-scale-mode: scale-to-fit;
 }
 
 .tile {
@@ -221,6 +223,7 @@
     padding-right: 0;
     padding-top: 0;
     padding-bottom: 0;
+    -unity-background-scale-mode: scale-to-fit;
 }
 
 .tile:hover {
@@ -239,10 +242,11 @@
     padding-right: 0;
     padding-top: 0;
     padding-bottom: 0;
-    border-left-color: rgba(241, 150, 21, 255);
-    border-right-color: rgba(241, 150, 21, 255);
-    border-top-color: rgba(241, 150, 21, 255);
-    border-bottom-color: rgba(241, 150, 21, 255);
+    border-left-color: rgb(241, 150, 21);
+    border-right-color: rgb(241, 150, 21);
+    border-top-color: rgb(241, 150, 21);
+    border-bottom-color: rgb(241, 150, 21);
+    -unity-background-scale-mode: scale-to-fit;
 }
 
 .buttonPiece {
@@ -261,10 +265,12 @@
     border-bottom-left-radius: 3px;
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
-    border-left-color: rgba(241, 150, 21, 255);
-    border-right-color: rgba(241, 150, 21, 255);
-    border-top-color: rgba(241, 150, 21, 255);
-    border-bottom-color: rgba(241, 150, 21, 255);
+    border-left-color: rgb(241, 150, 21);
+    border-right-color: rgb(241, 150, 21);
+    border-top-color: rgb(241, 150, 21);
+    border-bottom-color: rgb(241, 150, 21);
+    height: 100%;
+    width: 15%;
 }
 
 .buttonPiece:hover {
@@ -279,8 +285,24 @@
     border-bottom-left-radius: 3px;
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
-    border-left-color: rgba(241, 150, 21, 255);
-    border-right-color: rgba(241, 150, 21, 255);
-    border-top-color: rgba(241, 150, 21, 255);
-    border-bottom-color: rgba(241, 150, 21, 255);
+    border-left-color: rgb(241, 150, 21);
+    border-right-color: rgb(241, 150, 21);
+    border-top-color: rgb(241, 150, 21);
+    border-bottom-color: rgb(241, 150, 21);
+}
+
+.labelControlBoard {
+    height: 100%;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    color: rgb(255, 255, 255);
+    -unity-text-align: middle-left;
+    font-size: 100%;
 }

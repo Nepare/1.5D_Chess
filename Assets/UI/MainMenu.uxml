@@ -26,7 +26,7 @@
                     <ui:VisualElement name="boardManagement" style="width: 100%; height: 100%; background-color: rgba(56, 88, 224, 0.2);">
                         <ui:VisualElement name="tileZone" style="height: 60%; flex-direction: row;">
                             <ui:VisualElement name="leftEdge" style="height: 100%; width: 10%; justify-content: center; align-items: center;">
-                                <ui:Button display-tooltip-when-elided="true" name="leftEdgeTile" class="edgeTile" />
+                                <ui:Button display-tooltip-when-elided="true" name="e1" class="edgeTile" />
                             </ui:VisualElement>
                             <ui:VisualElement name="mainBody" style="width: 80%; height: 100%; align-items: center; justify-content: center;">
                                 <ui:VisualElement name="boardTable" style="width: 95%; height: 100%; margin-left: 2.5%; margin-right: 2.5%; margin-top: 5%; margin-bottom: 5%;">
@@ -54,7 +54,7 @@
                                         <ui:Button display-tooltip-when-elided="true" name="t3" class="tile" style="background-color: rgb(0, 0, 0);" />
                                         <ui:Button display-tooltip-when-elided="true" name="t4" class="tile" />
                                         <ui:Button display-tooltip-when-elided="true" name="t5" class="tile" style="background-color: rgb(0, 0, 0);" />
-                                        <ui:Button display-tooltip-when-elided="true" name="6" class="tile" />
+                                        <ui:Button display-tooltip-when-elided="true" name="t6" class="tile" />
                                         <ui:Button display-tooltip-when-elided="true" name="t7" class="tile" style="background-color: rgb(0, 0, 0);" />
                                         <ui:Button display-tooltip-when-elided="true" name="t8" class="tile" />
                                         <ui:Button display-tooltip-when-elided="true" name="t9" class="tile" style="background-color: rgb(0, 0, 0);" />
@@ -105,25 +105,33 @@
                                 </ui:VisualElement>
                             </ui:VisualElement>
                             <ui:VisualElement name="rightEdge" style="width: 10%; height: 100%; justify-content: center; align-items: center;">
-                                <ui:Button display-tooltip-when-elided="true" name="rightEdgeTile" class="edgeTile" />
+                                <ui:Button display-tooltip-when-elided="true" name="e2" class="edgeTile" />
                             </ui:VisualElement>
                         </ui:VisualElement>
-                        <ui:VisualElement name="pieceZone" style="height: 25%; justify-content: space-between; align-items: center;">
-                            <ui:VisualElement name="whiteRow" style="height: 50%; width: 100%; flex-direction: row; justify-content: center; align-items: center;">
-                                <ui:Button display-tooltip-when-elided="true" name="wk" class="buttonPiece" />
-                                <ui:Button display-tooltip-when-elided="true" name="wq" class="buttonPiece" style="background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_wq.gif?fileID=2800000&amp;guid=ca859d6972717c2448affbbd4a0c093c&amp;type=3#escape_wq&apos;);" />
-                                <ui:Button display-tooltip-when-elided="true" name="wb" class="buttonPiece" style="background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_wb.gif?fileID=2800000&amp;guid=b3bc740dcb2519d4ca9d99d7fe97d16e&amp;type=3#escape_wb&apos;);" />
-                                <ui:Button display-tooltip-when-elided="true" name="wh" class="buttonPiece" style="background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_wh.gif?fileID=2800000&amp;guid=38a195e4dd0bb2e4a806e97add8e2f89&amp;type=3#escape_wh&apos;);" />
-                                <ui:Button display-tooltip-when-elided="true" name="wr" class="buttonPiece" style="background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_wr.gif?fileID=2800000&amp;guid=992d6e7026954eb4c8effaf4bdf949ab&amp;type=3#escape_wr&apos;);" />
-                                <ui:Button display-tooltip-when-elided="true" name="wp" class="buttonPiece" style="background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_wp.gif?fileID=2800000&amp;guid=15394d41ddfa8494b819bd4c0317c6c2&amp;type=3#escape_wp&apos;);" />
+                        <ui:VisualElement name="pieceZone" style="height: 25%; justify-content: space-between; align-items: center; flex-direction: row;">
+                            <ui:VisualElement name="hintsLeft" style="width: 25%; height: 100%;">
+                                <ui:Label display-tooltip-when-elided="true" name="lblWarnings" class="labelControlBoard" style="height: 100%; width: 95%; margin-left: 5%; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; -unity-text-align: middle-right;" />
                             </ui:VisualElement>
-                            <ui:VisualElement name="blackRow" style="width: 100%; height: 50%; flex-direction: row; justify-content: center;">
-                                <ui:Button display-tooltip-when-elided="true" name="bk" class="buttonPiece" style="background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_bk.gif?fileID=2800000&amp;guid=940d68f78ca5c094c84bb14b3e2e5101&amp;type=3#escape_bk&apos;);" />
-                                <ui:Button display-tooltip-when-elided="true" name="bq" class="buttonPiece" style="background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_bq.gif?fileID=2800000&amp;guid=70756b0008ff3f845b42731d582766e9&amp;type=3#escape_bq&apos;);" />
-                                <ui:Button display-tooltip-when-elided="true" name="bb" class="buttonPiece" style="background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_bb.gif?fileID=2800000&amp;guid=fa82cf81d0f46644fb0fa1bddb54a938&amp;type=3#escape_bb&apos;);" />
-                                <ui:Button display-tooltip-when-elided="true" name="bh" class="buttonPiece" style="background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_bh.gif?fileID=2800000&amp;guid=9a64d0d0773ebfc4689d437c7482c9d0&amp;type=3#escape_bh&apos;);" />
-                                <ui:Button display-tooltip-when-elided="true" name="br" class="buttonPiece" style="background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_br.gif?fileID=2800000&amp;guid=54fd0350a91c93d42a81466934c8a7a3&amp;type=3#escape_br&apos;);" />
-                                <ui:Button display-tooltip-when-elided="true" name="bp" class="buttonPiece" style="background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_bp.gif?fileID=2800000&amp;guid=42f204c8d81353349ad8f8bb6fafc5cc&amp;type=3#escape_bp&apos;);" />
+                            <ui:VisualElement name="pieces" style="align-items: center; justify-content: space-between; height: 100%; width: 50%;">
+                                <ui:VisualElement name="blackRow" style="width: 100%; height: 50%; flex-direction: row; justify-content: center;">
+                                    <ui:Button display-tooltip-when-elided="true" name="bk" class="buttonPiece" style="background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_bk.gif?fileID=2800000&amp;guid=940d68f78ca5c094c84bb14b3e2e5101&amp;type=3#escape_bk&apos;);" />
+                                    <ui:Button display-tooltip-when-elided="true" name="bq" class="buttonPiece" style="background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_bq.gif?fileID=2800000&amp;guid=70756b0008ff3f845b42731d582766e9&amp;type=3#escape_bq&apos;);" />
+                                    <ui:Button display-tooltip-when-elided="true" name="bb" class="buttonPiece" style="background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_bb.gif?fileID=2800000&amp;guid=fa82cf81d0f46644fb0fa1bddb54a938&amp;type=3#escape_bb&apos;);" />
+                                    <ui:Button display-tooltip-when-elided="true" name="bh" class="buttonPiece" style="background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_bh.gif?fileID=2800000&amp;guid=9a64d0d0773ebfc4689d437c7482c9d0&amp;type=3#escape_bh&apos;);" />
+                                    <ui:Button display-tooltip-when-elided="true" name="br" class="buttonPiece" style="background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_br.gif?fileID=2800000&amp;guid=54fd0350a91c93d42a81466934c8a7a3&amp;type=3#escape_br&apos;);" />
+                                    <ui:Button display-tooltip-when-elided="true" name="bp" class="buttonPiece" style="background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_bp.gif?fileID=2800000&amp;guid=42f204c8d81353349ad8f8bb6fafc5cc&amp;type=3#escape_bp&apos;);" />
+                                </ui:VisualElement>
+                                <ui:VisualElement name="whiteRow" style="height: 50%; width: 100%; flex-direction: row; justify-content: center; align-items: center;">
+                                    <ui:Button display-tooltip-when-elided="true" name="wk" class="buttonPiece" />
+                                    <ui:Button display-tooltip-when-elided="true" name="wq" class="buttonPiece" style="background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_wq.gif?fileID=2800000&amp;guid=ca859d6972717c2448affbbd4a0c093c&amp;type=3#escape_wq&apos;);" />
+                                    <ui:Button display-tooltip-when-elided="true" name="wb" class="buttonPiece" style="background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_wb.gif?fileID=2800000&amp;guid=b3bc740dcb2519d4ca9d99d7fe97d16e&amp;type=3#escape_wb&apos;);" />
+                                    <ui:Button display-tooltip-when-elided="true" name="wh" class="buttonPiece" style="background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_wh.gif?fileID=2800000&amp;guid=38a195e4dd0bb2e4a806e97add8e2f89&amp;type=3#escape_wh&apos;);" />
+                                    <ui:Button display-tooltip-when-elided="true" name="wr" class="buttonPiece" style="background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_wr.gif?fileID=2800000&amp;guid=992d6e7026954eb4c8effaf4bdf949ab&amp;type=3#escape_wr&apos;);" />
+                                    <ui:Button display-tooltip-when-elided="true" name="wp" class="buttonPiece" style="background-image: url(&apos;project://database/Assets/UI/Textures/EscapeMenu/escape_wp.gif?fileID=2800000&amp;guid=15394d41ddfa8494b819bd4c0317c6c2&amp;type=3#escape_wp&apos;);" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:VisualElement name="hintsRight" style="width: 25%; height: 100%;">
+                                <ui:Label display-tooltip-when-elided="true" name="lblInstructions" text="Select pieces;\nClick on tiles;\nClick without selected\npiece to clear the tile" class="labelControlBoard" style="margin-right: 5%; width: 95%;" />
                             </ui:VisualElement>
                         </ui:VisualElement>
                         <ui:VisualElement name="buttonZone" style="height: 15%; flex-direction: row; justify-content: space-around; align-items: center;">
