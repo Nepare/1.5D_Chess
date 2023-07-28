@@ -111,6 +111,13 @@ public class GameController : MonoBehaviour
                 newPiece.AddComponent<EdgePieceIdleAnimation>();
             }
         }
+
+        if (IsPlayerChecked(false, board)) GlobalEventManager.SendTechnicalVictory("w");
+        if (IsPlayerDoomed(true))
+        {
+            if (IsPlayerChecked(true, board)) GlobalEventManager.SendTechnicalVictory("b");
+            else GlobalEventManager.SendPlayerStalemated("w");
+        }
     }
 
     private void SetupPieces()

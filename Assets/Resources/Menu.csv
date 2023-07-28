@@ -10,10 +10,13 @@ Escape.Quit,Quit to Title Screen,Выйсці ў Галоўнае Меню
 HUD.Check,CHECKED,ШАХ
 GameOver.Checkmate,CHECKMATE,МАТ
 GameOver.Stalemate,STALEMATE,ПАТ
+GameOver.TechnicalVictory,TECHNICAL VICTORY,ТЭХНІЧНАЯ ПЕРАМОГА
 GameOver.WhiteWon,The White have won!,Белыя перамаглі!
 GameOver.BlackWon,The Black have won!,Чорныя перамаглі!
 GameOver.WhiteStalemate,The White cannot move!,Белыя не могуць хадзіць!
 GameOver.BlackStalemate,The Black cannot move!,Чорныя не могуць хадзіць!
+GameOver.WhiteTechnicalWin,The White win automatically!,Белыя перамагаюць аўтаматычна!
+GameOver.BlackTechnicalWin,The Black win automatically!,Чорныя перамагаюць аўтаматычна!
 Menu.Language,Language,Мова
 Menu.Apply,Apply Changes,Прыняць Змены
 Menu.Default,Revert to Default,Па Змаўчанні

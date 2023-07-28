@@ -3,7 +3,7 @@ using UnityEngine;
 public class GlobalEventManager : MonoBehaviour
 {
     public static System.Action<GameObject> OnPieceSelected, OnTileSelected, OnMoveableTileSelected, OnPieceEaten;
-    public static System.Action<string> OnPlayerChecked, OnPlayerCheckmated, OnPlayerStalemated;
+    public static System.Action<string> OnPlayerChecked, OnPlayerCheckmated, OnPlayerStalemated, OnTechnicalVictory;
     public static System.Action<bool> OnSelectionCancel;
     public static System.Action OnCameraDefault, OnUseAltMaterialsForHints, OnUseNormalMaterialsForHints, OnMoveMade, OnCheckShown; 
 
@@ -55,6 +55,12 @@ public class GlobalEventManager : MonoBehaviour
             OnPlayerStalemated.Invoke(message);
     }
 
+    public static void SendTechnicalVictory(string message)
+    {
+        if (OnTechnicalVictory != null)
+            OnTechnicalVictory.Invoke(message);
+    }
+
     public static void SendMoveMade()
     {
         if (OnMoveMade != null)
@@ -92,14 +98,17 @@ public class GlobalEventManager : MonoBehaviour
         OnPieceSelected = null;
         OnTileSelected = null;
         OnMoveableTileSelected = null;
+        OnPieceEaten = null; 
+        
         OnSelectionCancel = null;
         
         OnMoveMade = null;
-        OnPieceEaten = null;
+        OnCheckShown = null;
         
         OnPlayerChecked = null;
         OnPlayerCheckmated = null;
         OnPlayerStalemated = null;
+        OnTechnicalVictory = null;
 
         OnUseAltMaterialsForHints = null;
         OnUseNormalMaterialsForHints = null;

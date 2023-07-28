@@ -26,7 +26,6 @@ public class CoinController : MonoBehaviour
         GlobalEventManager.OnMoveMade += FlipFunc;
         GlobalEventManager.OnPieceSelected += PrepareFunc;
 
-        checkText = transform.GetChild(3).gameObject.GetComponent<CheckMeterController>();
         RectTransform objectRectTransform = transform.GetComponentInParent<RectTransform>();
         canvasHeight = objectRectTransform.rect.height;
         canvasWidth = objectRectTransform.rect.width;
@@ -35,6 +34,7 @@ public class CoinController : MonoBehaviour
 
     private void Start() {
         transform.rotation = whiteSide;
+        checkText = transform.GetChild(3).gameObject.GetComponent<CheckMeterController>();
     }
 
     private void CancelPreparationFunc(bool trueCancel)

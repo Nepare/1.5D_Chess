@@ -120,7 +120,7 @@ public class SetUpConfigurer : MonoBehaviour
     {
         if (activePiece == "")
         {
-            if (current_config.ContainsKey("l0")) current_config.Remove("l0");
+            if (current_config.ContainsKey(tileName)) current_config.Remove(tileName);
             if (wkPos == tileName) wkPos = "";
             if (bkPos == tileName) bkPos = "";
         }
