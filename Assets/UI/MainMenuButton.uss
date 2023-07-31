@@ -306,3 +306,54 @@
     -unity-text-align: middle-left;
     font-size: 100%;
 }
+
+.controlLabel {
+    font-size: 100%;
+    color: rgba(255, 255, 255, 255);
+    width: 65%;
+}
+
+.controlButton {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    width: 30%;
+    height: 100%;
+    background-color: rgba(56, 88, 224, 0.41);
+    color: rgb(255, 255, 255);
+    border-left-color: rgb(241, 150, 21);
+    border-right-color: rgb(241, 150, 21);
+    border-top-color: rgb(241, 150, 21);
+    border-bottom-color: rgb(241, 150, 21);
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+}
+
+.controlButton:hover {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 100%;
+    background-color: rgba(56, 88, 224, 0.59);
+    color: rgb(255, 255, 255);
+    border-left-color: rgb(241, 150, 21);
+    border-right-color: rgb(241, 150, 21);
+    border-top-color: rgb(241, 150, 21);
+    border-bottom-color: rgb(241, 150, 21);
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+}

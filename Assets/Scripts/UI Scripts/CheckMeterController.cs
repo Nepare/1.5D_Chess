@@ -6,6 +6,7 @@ public class CheckMeterController : MonoBehaviour
     private Quaternion startRotation;
 
     private void Awake() {
+        transform.Rotate(0, 180, 0);
         startRotation = transform.rotation;
 
         GlobalEventManager.OnCheckShown += Show;

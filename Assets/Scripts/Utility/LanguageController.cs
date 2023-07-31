@@ -6,9 +6,7 @@ public class LanguageController : MonoBehaviour
     public static int LANG_ID = 1;
     public static int SKYBOX_ID = 1;
     public static Dictionary<string, Dictionary<string, string>> langDict = new Dictionary<string, Dictionary<string, string>>();
-    // langDict["Menu.Start"]["English"] = "Start"
     private static string[] lines;
-    private static string separator;
 
     public static void ReadTable()
     {

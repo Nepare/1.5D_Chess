@@ -26,3 +26,18 @@ Menu.DefaultBoard,Default Board,Дошка па Змаўчанні
 Menu.BoardControlHint,Select pieces;\nClick on tiles;\nClick without selected\npiece to clear the tile,Выберыце фігуру;\nНацісніце на клетку;\nНацісніце на клетку\nбез выбранай фігуры\nкаб ачысціць яе
 Menu.BoardControlKingEdge,The King can't\nbe placed\nin reserve!,Кароль не\nможа быць\nу рэзерве!
 Menu.BoardControlKingAbsent,There must\nbe two Kings\non the board!,На дошцы\nпавінна быць\nдва каралі!
+Keybinds.Left,Move Left,Рух налева
+Keybinds.Right,Move Right,Рух направа
+Keybinds.Up,Move Up,Рух уверх
+Keybinds.Down,Move Down,Рух уніз
+Keybinds.Center,Center the Camera,Цэнтраваць камеру
+Keybinds.Clockwise,Spin Clockwise,Рух па гадзіннікавай
+Keybinds.AntiClockwise,Spin Anticlockwise,Рух супраць гадзіннікавай
+Keybinds.Towards,Spin the board away,Вярчэнне дошкі знізу-удалечыню
+Keybinds.Backwards,Spin the board towards,Вярчэнне дошкі зверху-удалечыню
+Keybinds.Zoomin,Zoom in,Наблізіць камеру
+Keybinds.Zoomout,Zoom out,Аддаліць камеру
+Keybinds.Spin,Spin the board,Націск для вярчэння дошкі
+Keybinds.Select,Select objects,Выбраць аб'ект
+Keybinds.Escape,Escape Menu,Зайсці ў меню
+Keybinds.Default,Default Controls,Кіраванне па Змаўчанні

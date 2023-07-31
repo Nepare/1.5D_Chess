@@ -4,7 +4,10 @@ using UnityEngine.SceneManagement;
 
 public class UIBehaviour : MonoBehaviour
 {   
-    private Button buttonStart, buttonQuit, buttonOptions, buttonApply, buttonDefault, buttonSkybox1, buttonSkybox2, buttonSkybox3;
+    private Button buttonStart, buttonQuit, buttonOptions, buttonApply, buttonDefault, buttonDefaultControls, buttonSkybox1, buttonSkybox2, buttonSkybox3;
+    private Button ctrlSelect, ctrlSpin, ctrlCenter, ctrlEscape, ctrlRight, ctrlLeft, ctrlUp, ctrlDown, ctrlClck, ctrlAClck, ctrlTwrd, ctrlBckwrd, ctrlZoomout, ctrlZoomin;
+    private Label lblSelect, lblSpin, lblCenter, lblEscape, lblRight, lblLeft, lblUp, lblDown, lblClck, lblAClck, lblTwrd, lblBckwrd, lblZoomin, lblZoomout;
+
     private Button buttonManageBoard, buttonManageControls, buttonDefaultBoard;
     private static Button[] buttonPieces;
     DropdownField dropdownLang;
@@ -13,6 +16,9 @@ public class UIBehaviour : MonoBehaviour
     private bool optionsOpen;
     private int skyboxChosen = 0;
     private System.Collections.Generic.Dictionary<string, string> boardConfig;
+
+    private string currentKeyControl = "";
+    private System.Collections.Generic.Dictionary<string, Button> controlButtons = new System.Collections.Generic.Dictionary<string, Button>();
 
     private void OnEnable() {
         root = GetComponent<UIDocument>().rootVisualElement;
@@ -32,11 +38,14 @@ public class UIBehaviour : MonoBehaviour
         buttonManageBoard = root.Q<Button>("ButtonManageBoard");
         buttonManageControls = root.Q<Button>("ButtonManageControls");
         buttonDefaultBoard = root.Q<Button>("buttonDefaultBoard");
+        buttonDefaultControls = root.Q<Button>("defaultControls");
 
         boardManagement = root.Q<VisualElement>("boardManagement");
         controlManagement = root.Q<VisualElement>("controlManagement");
         lblInstructions = root.Q<Label>("lblInstructions");
         lblWarnings = root.Q<Label>("lblWarnings");
+
+        ConnectControlKeybindsToVars();
 
         SetUpConfigurer.root = root;
 
@@ -58,6 +67,7 @@ public class UIBehaviour : MonoBehaviour
         buttonOptions.clicked += OptionsToggle;
         buttonApply.clicked += ApplyChanges;
         buttonDefault.clicked += Default;
+        buttonDefaultControls.clicked += DefaultControls;
 
         buttonSkybox1.clicked += EnableSkybox1;
         buttonSkybox2.clicked += EnableSkybox2;
@@ -79,12 +89,12 @@ public class UIBehaviour : MonoBehaviour
         buttonPieces[9].clicked += ChoosePieceBh;
         buttonPieces[10].clicked += ChoosePieceBr;
         buttonPieces[11].clicked += ChoosePieceBp;
-
         
         dropdownLang.index = LanguageController.LANG_ID - 1;
         UpdateLanguage();
         CloseOptions();
         SetUpBoardVisuals(SetUpConfigurer.SETUP_CONFIGURATION);
+        ExportControlsToVisualBoard();
         SetUpConfigurer.SubscribeAllTiles();
 
         switch (LanguageController.SKYBOX_ID)
@@ -124,6 +134,7 @@ public class UIBehaviour : MonoBehaviour
         UpdateLanguage();
         EnableSkybox1();
         DefaultBoard();
+        DefaultControls();
     }
 
     private void DefaultBoard()
@@ -171,6 +182,24 @@ public class UIBehaviour : MonoBehaviour
         buttonManageControls.text = LanguageController.GetWord("Menu.ManageControls");
         buttonDefaultBoard.text = LanguageController.GetWord("Menu.DefaultBoard");
         lblInstructions.text = LanguageController.GetWord("Menu.BoardControlHint");
+        buttonDefaultControls.text = LanguageController.GetWord("Keybinds.Default");
+
+        lblSelect.text = LanguageController.GetWord("Keybinds.Select");
+        lblLeft.text = LanguageController.GetWord("Keybinds.Left");
+        lblRight.text = LanguageController.GetWord("Keybinds.Right");
+        lblUp.text = LanguageController.GetWord("Keybinds.Up");
+        lblDown.text = LanguageController.GetWord("Keybinds.Down");
+        lblClck.text = LanguageController.GetWord("Keybinds.Clockwise");
+        lblAClck.text = LanguageController.GetWord("Keybinds.AntiClockwise");
+
+        lblSpin.text = LanguageController.GetWord("Keybinds.Spin");
+        lblTwrd.text = LanguageController.GetWord("Keybinds.Towards");
+        lblBckwrd.text = LanguageController.GetWord("Keybinds.Backwards");
+        lblZoomin.text = LanguageController.GetWord("Keybinds.Zoomin");
+        lblZoomout.text = LanguageController.GetWord("Keybinds.Zoomout");
+        lblCenter.text = LanguageController.GetWord("Keybinds.Center");
+        lblEscape.text = LanguageController.GetWord("Keybinds.Escape");
+
     }
 
     private void DisableAllSkyboxes()
@@ -227,7 +256,10 @@ public class UIBehaviour : MonoBehaviour
     private void ManageBoard()
     {
         controlManagement.visible = false;
+        controlManagement.style.height = new StyleLength(0f);
         boardManagement.visible = true;
+        boardManagement.style.height = new StyleLength(Length.Percent(100));
+
         buttonManageBoard.style.borderTopWidth = 2;
         buttonManageBoard.style.borderBottomWidth = 2;
         buttonManageBoard.style.borderRightWidth = 2;
@@ -241,8 +273,10 @@ public class UIBehaviour : MonoBehaviour
 
     private void ManageControls()
     {
-        controlManagement.visible = true;
         boardManagement.visible = false;
+        boardManagement.style.height = new StyleLength(0f);
+        controlManagement.visible = true;
+        controlManagement.style.height = new StyleLength(Length.Percent(100));
 
         buttonManageBoard.style.borderTopWidth = 0;
         buttonManageBoard.style.borderBottomWidth = 0;
@@ -385,5 +419,145 @@ public class UIBehaviour : MonoBehaviour
     {
         Texture2D currentTexture = Resources.Load<Texture2D>("escape_" + pieceName);
         return currentTexture;
+    }
+
+    private void ConnectControlKeybindsToVars()
+    {
+        ctrlSelect = root.Q<Button>("control11Button"); 
+        ctrlSelect.clicked += ChangeControl11;
+        ctrlLeft = root.Q<Button>("control12Button");
+        ctrlLeft.clicked += ChangeControl12;
+        ctrlRight = root.Q<Button>("control13Button");
+        ctrlRight.clicked += ChangeControl13;
+        ctrlUp = root.Q<Button>("control14Button");
+        ctrlUp.clicked += ChangeControl14;
+        ctrlDown = root.Q<Button>("control15Button");
+        ctrlDown.clicked += ChangeControl15;
+        ctrlClck = root.Q<Button>("control16Button");
+        ctrlClck.clicked += ChangeControl16;
+        ctrlAClck = root.Q<Button>("control17Button");
+        ctrlAClck.clicked += ChangeControl17;
+
+        ctrlSpin = root.Q<Button>("control21Button");
+        ctrlSpin.clicked += ChangeControl21;
+        ctrlTwrd = root.Q<Button>("control22Button");
+        ctrlTwrd.clicked += ChangeControl22;
+        ctrlBckwrd = root.Q<Button>("control23Button");
+        ctrlBckwrd.clicked += ChangeControl23;
+        ctrlZoomin = root.Q<Button>("control24Button");
+        ctrlZoomin.clicked += ChangeControl24;
+        ctrlZoomout = root.Q<Button>("control25Button");
+        ctrlZoomout.clicked += ChangeControl25;
+        ctrlCenter = root.Q<Button>("control26Button");
+        ctrlCenter.clicked += ChangeControl26;
+        ctrlEscape = root.Q<Button>("control27Button");
+        ctrlEscape.clicked += ChangeControl27;
+
+        lblSelect = root.Q<Label>("control11Text");
+        lblLeft = root.Q<Label>("control12Text");
+        lblRight = root.Q<Label>("control13Text");
+        lblUp = root.Q<Label>("control14Text");
+        lblDown = root.Q<Label>("control15Text");
+        lblClck = root.Q<Label>("control16Text");
+        lblAClck = root.Q<Label>("control17Text");
+
+        lblSpin = root.Q<Label>("control21Text");
+        lblTwrd = root.Q<Label>("control22Text");
+        lblBckwrd = root.Q<Label>("control23Text");
+        lblZoomin = root.Q<Label>("control24Text");
+        lblZoomout = root.Q<Label>("control25Text");
+        lblCenter = root.Q<Label>("control26Text");
+        lblEscape = root.Q<Label>("control27Text");
+
+        controlButtons["select"] = ctrlSelect;
+        controlButtons["left"] = ctrlLeft;
+        controlButtons["right"] = ctrlRight;
+        controlButtons["up"] = ctrlUp;
+        controlButtons["down"] = ctrlDown;
+        controlButtons["anticlockwise"] = ctrlAClck;
+        controlButtons["clockwise"] = ctrlClck;
+        controlButtons["spin"] = ctrlSpin;
+        controlButtons["toward"] = ctrlTwrd;
+        controlButtons["backwards"] = ctrlBckwrd;
+        controlButtons["center"] = ctrlCenter;
+        controlButtons["zoomin"] = ctrlZoomin;
+        controlButtons["zoomout"] = ctrlZoomout;
+        controlButtons["escape"] = ctrlEscape;
+    }
+
+    private void ChangeControl11() { ChangeControlGeneral("select"); }
+    private void ChangeControl12() { ChangeControlGeneral("left"); }
+    private void ChangeControl13() { ChangeControlGeneral("right"); }
+    private void ChangeControl14() { ChangeControlGeneral("up"); }
+    private void ChangeControl15() { ChangeControlGeneral("down"); }
+    private void ChangeControl16() { ChangeControlGeneral("clockwise"); }
+    private void ChangeControl17() { ChangeControlGeneral("anticlockwise"); }
+
+    private void ChangeControl21() { ChangeControlGeneral("spin"); }
+    private void ChangeControl22() { ChangeControlGeneral("toward"); }
+    private void ChangeControl23() { ChangeControlGeneral("backwards"); }
+    private void ChangeControl24() { ChangeControlGeneral("zoomin"); }
+    private void ChangeControl25() { ChangeControlGeneral("zoomout"); }
+    private void ChangeControl26() { ChangeControlGeneral("center"); }
+    private void ChangeControl27() { ChangeControlGeneral("escape"); }
+
+    private void ChangeControlGeneral(string controlName)
+    {
+        DeBorderifyAllControls();
+        Borderify(controlButtons[controlName], 2);
+
+        currentKeyControl = controlName;
+    }
+
+    private void DeBorderifyAllControls()
+    {
+        currentKeyControl = "";
+
+        Borderify(ctrlSelect, 0);
+        Borderify(ctrlUp, 0);
+        Borderify(ctrlDown, 0);
+        Borderify(ctrlLeft, 0);
+        Borderify(ctrlRight, 0);
+        Borderify(ctrlAClck, 0);
+        Borderify(ctrlClck, 0);
+        Borderify(ctrlBckwrd, 0);
+        Borderify(ctrlTwrd, 0);
+        Borderify(ctrlSpin, 0);
+        Borderify(ctrlEscape, 0);
+        Borderify(ctrlCenter, 0);
+        Borderify(ctrlZoomin, 0);
+        Borderify(ctrlZoomout, 0);
+    }
+
+    private void OnGUI() {
+        if (currentKeyControl != "")
+        {
+            Event e = Event.current;
+            if (e.isKey)
+            {
+                Keybinds.keybinds[currentKeyControl] = e.keyCode;
+                controlButtons[currentKeyControl].text = e.keyCode.ToString();
+                DeBorderifyAllControls();
+            }
+            if (e.isMouse)
+            {
+                controlButtons[currentKeyControl].text = "Mouse" + e.button.ToString();
+                DeBorderifyAllControls();
+            }
+        }
+    }
+
+    private void ExportControlsToVisualBoard()
+    {
+        foreach (var controlName in Keybinds.keybinds.Keys)
+        {
+            controlButtons[controlName].text = Keybinds.keybinds[controlName].ToString();
+        }
+    }
+
+    private void DefaultControls()
+    {
+        Keybinds.keybinds = Keybinds.DefaultKeybinds();
+        ExportControlsToVisualBoard();
     }
 }

@@ -61,10 +61,10 @@ public class RotationHUD : MonoBehaviour
     {
         if (isMovingLeft) boardRotator.MoveAlongBoard(0, 180, 1, false);
         if (isMovingRight) boardRotator.MoveAlongBoard(0, 180, -1, false);
-        if (isSpinningBackward) boardRotator.RotateBoard(-0.3f);
-        if (isSpinningForward) boardRotator.RotateBoard(0.3f);
         if (isSpinningClockwise) boardRotator.RotateCamera(1);
         if (isSpinningAntiClockwise) boardRotator.RotateCamera(-1);
+        if (isSpinningBackward) boardRotator.RotateBoard(-0.3f);
+        if (isSpinningForward) boardRotator.RotateBoard(0.3f);
         if (isZoomingIn) boardRotator.Zoom(0.02f);
         if (isZoomingOut) boardRotator.Zoom(-0.02f);
     }

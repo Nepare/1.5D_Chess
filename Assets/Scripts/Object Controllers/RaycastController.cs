@@ -12,7 +12,7 @@ public class RaycastController : MonoBehaviour
     }
 
     private void Update() {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(Keybinds.keybinds["select"]))
         {
             Ray _ray = _cam.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(_ray, out RaycastHit _Target))

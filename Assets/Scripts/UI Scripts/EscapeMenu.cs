@@ -27,7 +27,7 @@ public class EscapeMenu : MonoBehaviour
     }
 
     private void Update() {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(Keybinds.keybinds["escape"]))
         {
             if (!isPaused) CallMenu();
             else Continue();

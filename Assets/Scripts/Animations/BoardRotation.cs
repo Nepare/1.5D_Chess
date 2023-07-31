@@ -33,12 +33,12 @@ public class BoardRotation : MonoBehaviour
 
     private void HandleInputs()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(Keybinds.keybinds["center"]))
         {
             GlobalEventManager.SendCameraDefault();
         }
 
-        if (Input.GetMouseButton(1))
+        if (Input.GetKey(Keybinds.keybinds["spin"]))
         {
             float mouseRotation = Input.GetAxis("Mouse Y");
             if (camTranformer.localEulerAngles.y >= 0 && camTranformer.localEulerAngles.y < 180)
@@ -47,22 +47,30 @@ public class BoardRotation : MonoBehaviour
                 RotateBoard(mouseRotation);
         }
 
-        if (Input.GetKey(KeyCode.Q))
+        if (Input.GetKey(Keybinds.keybinds["anticlockwise"]))
             RotateCamera(-1);
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKey(Keybinds.keybinds["clockwise"]))
             RotateCamera(1);
 
         if (Input.GetAxis("Mouse ScrollWheel") != 0f)
             Zoom(Input.GetAxis("Mouse ScrollWheel"));
 
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(Keybinds.keybinds["up"]))
             MoveAlongBoard(90, 270, -1, false);
-        else if (Input.GetKey(KeyCode.S))
+        else if (Input.GetKey(Keybinds.keybinds["down"]))
             MoveAlongBoard(90, 270, 1, false);
-        else if (Input.GetKey(KeyCode.A))
+        else if (Input.GetKey(Keybinds.keybinds["left"]))
             MoveAlongBoard(0, 180, 1, false);
-        else if (Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(Keybinds.keybinds["right"]))
             MoveAlongBoard(0, 180, -1, false);
+        else if (Input.GetKey(Keybinds.keybinds["backwards"])) 
+            RotateBoard(-0.3f);
+        else if (Input.GetKey(Keybinds.keybinds["toward"])) 
+            RotateBoard(0.3f);
+        else if (Input.GetKey(Keybinds.keybinds["zoomin"])) 
+            Zoom(0.02f);
+        else if (Input.GetKey(Keybinds.keybinds["zoomout"])) 
+            Zoom(-0.02f);
         else MoveAlongBoard(0, 0, 1, true);
     }
 
