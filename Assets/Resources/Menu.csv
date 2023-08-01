@@ -26,6 +26,8 @@ Menu.DefaultBoard,Default Board,Дошка па Змаўчанні
 Menu.BoardControlHint,Select pieces;\nClick on tiles;\nClick without selected\npiece to clear the tile,Выберыце фігуру;\nНацісніце на клетку;\nНацісніце на клетку\nбез выбранай фігуры\nкаб ачысціць яе
 Menu.BoardControlKingEdge,The King can't\nbe placed\nin reserve!,Кароль не\nможа быць\nу рэзерве!
 Menu.BoardControlKingAbsent,There must\nbe two Kings\non the board!,На дошцы\nпавінна быць\nдва каралі!
+Menu.BoardControlPawnEdge,Pawns cannot\nbe placed in\nenemy's reserve,Пешка не можа\nбыць у варожым\nрэзерве
+Menu.BoardControlPawnPromotion,Pawns cannot\nbe placed on\npromotion tiles,Пешке не можа\nпачынаць на\nклетках павышэння
 Keybinds.Left,Move Left,Рух налева
 Keybinds.Right,Move Right,Рух направа
 Keybinds.Up,Move Up,Рух уверх

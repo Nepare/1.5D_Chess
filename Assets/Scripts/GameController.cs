@@ -6,7 +6,7 @@ public class GameController : MonoBehaviour
 {
     private string[,] board;
     private string[] boardEdges;
-    public GameObject menu, gameOverMenu;
+    public GameObject menu, gameOverMenu, promotionMenu;
     public GameObject pieces, piecePrefab, tiles;
     private List<PieceController> pieceControllers = new List<PieceController>();
     private GameObject currentlyEnabledTile, currentlyEnabledPiece;
@@ -40,8 +40,11 @@ public class GameController : MonoBehaviour
     {
         board = new string[4, 16];
         boardEdges = new string[2];
+        
         menu.SetActive(true);
         gameOverMenu.SetActive(true);
+        promotionMenu.SetActive(true);
+        
         SetupPieces();
         PlacePieces();
         GlobalEventManager.OnPieceSelected += SelectForMove;
@@ -53,6 +56,8 @@ public class GameController : MonoBehaviour
         GlobalEventManager.OnPlayerChecked    += HandleCheck;
         GlobalEventManager.OnPlayerCheckmated += HandleCheckmate;
         GlobalEventManager.OnPlayerStalemated += HandleStalemate;
+
+        GlobalEventManager.OnPromotion += HandlePromotion;
 
         for (int i = 0; i < pieces.transform.childCount; i++)
         {
@@ -69,40 +74,36 @@ public class GameController : MonoBehaviour
             newPiece.GetComponent<PieceController>().AssignPiece(el.GetName());
             newPiece.GetComponent<PieceController>().SetInPlace(el.GetX(), el.GetY());
             newPiece.transform.parent = pieces.transform;
-            Transform modelTransformer = newPiece.transform.GetChild(0);
             char pieceSymbol = 'u';
             switch(el.GetName())
             {
                 case "king":
-                    modelTransformer = newPiece.transform.GetChild(0);
                     pieceSymbol = 'k';
                     break;
                 case "bishop":
-                    modelTransformer = newPiece.transform.GetChild(1);
                     pieceSymbol = 'b';
                     break;
                 case "knight":
-                    modelTransformer = newPiece.transform.GetChild(2);
                     pieceSymbol = 'h';
                     break;
                 case "pawn":
-                    modelTransformer = newPiece.transform.GetChild(3);
                     pieceSymbol = 'p';
                     break;
                 case "rook":
-                    modelTransformer = newPiece.transform.GetChild(4);
                     pieceSymbol = 'r';
                     break;
                 case "queen":
-                    modelTransformer = newPiece.transform.GetChild(5);
                     pieceSymbol = 'q';
                     break;    
                 default:
-                    modelTransformer = newPiece.transform.GetChild(3);
                     pieceSymbol = 'u';
                     break;            
             }
-            modelTransformer.GetChild(0).GetComponent<Renderer>().material = el.GetIsWhite() ? whiteMaterial : blackMaterial;
+            
+            for (int i = 0; i < newPiece.transform.childCount; i++)
+            {
+                newPiece.transform.GetChild(i).GetChild(0).GetComponent<Renderer>().material = el.GetIsWhite() ? whiteMaterial : blackMaterial;
+            }
             if (el.GetX() != -1)
                 board[el.GetX(), el.GetY()] = el.GetIsWhite() ? "w" + pieceSymbol.ToString() : "b" + pieceSymbol.ToString();
             else 
@@ -238,6 +239,16 @@ public class GameController : MonoBehaviour
                     startX = move.GetEndX();
                 }
 
+                //////////////////////             
+
+                if ((board[move.GetEndX(), move.GetEndY()] == "wp" && move.GetEndY() == 15) || (board[move.GetEndX(), move.GetEndY()] == "bp" && move.GetEndY() == 0)) 
+                { 
+                    GlobalEventManager.SendPawnPromoted(currentlyEnabledPiece, board[move.GetEndX(), move.GetEndY()][0] == 'w' ? true : false, (move.GetEndX().ToString() + move.GetEndY().ToString())); 
+                    menu.GetComponent<EscapeMenu>().DecreasePieceCount(board[move.GetEndX(), move.GetEndY()]);
+                }
+
+                //////////////////////
+
                 GlobalEventManager.SendMoveMade();
                 NextTurn();
                 if (IsPlayerChecked(WhitesTurnToMove, board))
@@ -259,6 +270,7 @@ public class GameController : MonoBehaviour
                 }
 
                 currentlyEnabledPiece.GetComponent<PieceController>().MovePiece(startX + move.GetHorizontalDistance(), move.GetEndY(), dirX);
+                
                 if (oldContentOfEndTile == null) return;
                 if ((oldContentOfEndTile[0] == 'w' && board[move.GetEndX(), move.GetEndY()][0] == 'b') || (oldContentOfEndTile[0] == 'b' && board[move.GetEndX(), move.GetEndY()][0] == 'w'))
                 {
@@ -275,6 +287,31 @@ public class GameController : MonoBehaviour
                 }
                 return;
             }
+        }
+    }
+
+    private void HandlePromotion(string promotedCell, string promotedPiece)
+    {
+        menu.GetComponent<EscapeMenu>().IncreasePieceCount(promotedPiece);
+        board[System.Convert.ToInt32(promotedCell[0].ToString()), System.Convert.ToInt32(promotedCell.Substring(1))] = promotedPiece;
+        CancelSelection(true);
+
+        if (IsPlayerChecked(WhitesTurnToMove, board))
+        {
+            if (IsPlayerDoomed(WhitesTurnToMove))
+            {
+                GlobalEventManager.SendPlayerCheckmated(WhitesTurnToMove ? "w" : "b");
+                return;
+            }
+            else
+            {
+                GlobalEventManager.SendCheckShow();
+            }
+        }
+        if (IsPlayerDoomed(WhitesTurnToMove))
+        {
+            GlobalEventManager.SendPlayerStalemated(WhitesTurnToMove ? "w" : "b");
+            return;
         }
     }
 

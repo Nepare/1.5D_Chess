@@ -143,6 +143,11 @@ public class SetUpConfigurer : MonoBehaviour
             }
             bkPos = tileName;
         }
+        if ((activePiece == "bp" && tileName.Substring(1) == "0") || (activePiece == "wp" && tileName.Substring(1) == "15"))
+        {
+            root.Q<Label>("lblWarnings").text = LanguageController.GetWord("Menu.BoardControlPawnPromotion");
+            return;
+        }
         root.Q<Button>(tileName[0] + (System.Convert.ToInt32(tileName.Substring(1)) + 1).ToString()).style.backgroundImage = UIBehaviour.GetTextureFromName(activePiece);
         activePiece = "";
         root.Q<Label>("lblWarnings").text = "";
@@ -158,6 +163,11 @@ public class SetUpConfigurer : MonoBehaviour
         else if (activePiece[1] == 'k') 
         {
             root.Q<Label>("lblWarnings").text = LanguageController.GetWord("Menu.BoardControlKingEdge");
+            return;
+        }
+        else if (activePiece == "bp")
+        {
+            root.Q<Label>("lblWarnings").text = LanguageController.GetWord("Menu.BoardControlPawnEdge");
             return;
         }
         else 
@@ -179,6 +189,11 @@ public class SetUpConfigurer : MonoBehaviour
         else if (activePiece[1] == 'k') 
         {
             root.Q<Label>("lblWarnings").text = LanguageController.GetWord("Menu.BoardControlKingEdge");
+            return;
+        }
+        else if (activePiece == "wp")
+        {
+            root.Q<Label>("lblWarnings").text = LanguageController.GetWord("Menu.BoardControlPawnEdge");
             return;
         }
         else 

@@ -3,7 +3,9 @@ using UnityEngine;
 public class GlobalEventManager : MonoBehaviour
 {
     public static System.Action<GameObject> OnPieceSelected, OnTileSelected, OnMoveableTileSelected, OnPieceEaten;
+    public static System.Action<GameObject, bool, string> OnPawnPromoted;
     public static System.Action<string> OnPlayerChecked, OnPlayerCheckmated, OnPlayerStalemated, OnTechnicalVictory;
+    public static System.Action<string, string> OnPromotion;
     public static System.Action<bool> OnSelectionCancel;
     public static System.Action OnCameraDefault, OnUseAltMaterialsForHints, OnUseNormalMaterialsForHints, OnMoveMade, OnCheckShown; 
 
@@ -23,6 +25,18 @@ public class GlobalEventManager : MonoBehaviour
     {
         if (OnMoveableTileSelected != null)
             OnMoveableTileSelected.Invoke(tile);
+    }
+
+    public static void SendPawnPromoted(GameObject pawn, bool isWhite, string cell)
+    {
+        if (OnPawnPromoted != null)
+            OnPawnPromoted.Invoke(pawn, isWhite, cell);
+    }
+
+    public static void SendPromotion(string promotedCell, string promotedPiece)
+    {
+        if (OnPromotion != null)
+            OnPromotion.Invoke(promotedCell, promotedPiece);
     }
 
     public static void SendSelectionCancel(bool trueCancel)
@@ -99,6 +113,8 @@ public class GlobalEventManager : MonoBehaviour
         OnTileSelected = null;
         OnMoveableTileSelected = null;
         OnPieceEaten = null; 
+        OnPawnPromoted = null;
+        OnPromotion = null;
         
         OnSelectionCancel = null;
         

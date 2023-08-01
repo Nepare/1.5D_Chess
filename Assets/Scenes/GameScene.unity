@@ -1312,7 +1312,7 @@ RectTransform:
   m_Children:
   - {fileID: 340424188}
   m_Father: {fileID: 468738425}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1836,6 +1836,7 @@ Transform:
   m_Children:
   - {fileID: 807205205}
   - {fileID: 748867532}
+  - {fileID: 1039421517}
   - {fileID: 1971370783}
   - {fileID: 334976015}
   - {fileID: 1548057405}
@@ -3912,6 +3913,67 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 593534168382596022, guid: 77febd11dc5744145b965cb61c39ca4d, type: 3}
   m_PrefabInstance: {fileID: 967139379}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1039421516
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1039421517}
+  - component: {fileID: 1039421519}
+  - component: {fileID: 1039421518}
+  m_Layer: 5
+  m_Name: PromoteMenu
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1039421517
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1039421516}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 468738425}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1039421518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1039421516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fc2446ec2719944089cebe07f140b5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1039421519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1039421516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 44e59f19047da974f9b126df91f2cf2b, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: bbb0d8f51e00d444da4d6afb9c3219f0, type: 3}
+  m_SortingOrder: 1
 --- !u!1001 &1085385223
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4288,6 +4350,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menu: {fileID: 748867531}
   gameOverMenu: {fileID: 807205204}
+  promotionMenu: {fileID: 1039421516}
   pieces: {fileID: 1228634526}
   piecePrefab: {fileID: 9201044447869247168, guid: 90e2b849d109b81469ceeea5cfb281a2, type: 3}
   tiles: {fileID: 899220248}
@@ -5516,7 +5579,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 468738425}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1001 &1554116693
 PrefabInstance:
@@ -6622,7 +6685,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 468738425}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1971370784
 MonoBehaviour:

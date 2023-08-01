@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/EscapeMenu.uss?fileID=7433441132597879392&amp;guid=65d251cab8428fb4ba496f17dd9d79fb&amp;type=3#EscapeMenu" />
+    <ui:VisualElement name="root" style="width: 100%; height: 100%; align-items: center; justify-content: center;">
+        <ui:VisualElement name="background" style="background-color: rgb(119, 156, 171); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; width: 80%; height: 30%; border-top-left-radius: 1px; border-bottom-left-radius: 1px; border-top-right-radius: 1px; border-bottom-right-radius: 1px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); flex-direction: row; align-items: center;">
+            <ui:Button display-tooltip-when-elided="true" name="promoteToQueen" class="promoteButton" />
+            <ui:Button display-tooltip-when-elided="true" name="promoteToBishop" class="promoteButton" style="background-image: resource(&apos;escape_bb&apos;);" />
+            <ui:Button display-tooltip-when-elided="true" name="promoteToKnight" class="promoteButton" style="background-image: resource(&apos;escape_bh&apos;);" />
+            <ui:Button display-tooltip-when-elided="true" name="promoteToRook" class="promoteButton" style="background-image: resource(&apos;escape_br&apos;);" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

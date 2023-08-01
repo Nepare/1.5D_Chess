@@ -47,3 +47,43 @@
     background-image: url('project://database/Assets/UI/Textures/EscapeMenu/escape_bq.gif?fileID=2800000&guid=70756b0008ff3f845b42731d582766e9&type=3#escape_bq');
     -unity-background-scale-mode: scale-to-fit;
 }
+
+.promoteButton {
+    width: 25%;
+    height: 80%;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    background-image: resource('escape_bq');
+    -unity-background-scale-mode: scale-to-fit;
+    background-color: rgba(255, 183, 178, 0);
+}
+
+.promoteButton:hover {
+    width: 25%;
+    height: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    background-image: resource('escape_bq');
+    -unity-background-scale-mode: scale-to-fit;
+    background-color: rgb(255, 183, 178);
+}

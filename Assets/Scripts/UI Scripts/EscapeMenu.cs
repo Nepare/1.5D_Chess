@@ -70,6 +70,12 @@ public class EscapeMenu : MonoBehaviour
         decreasingCountLabel.text = (int.Parse(decreasingCountLabel.text) - 1).ToString();
     }
 
+    public void IncreasePieceCount(string promotedPiece)
+    {
+        Label increasingCountLabel = root.Q<Label>(promotedPiece + "_count");
+        increasingCountLabel.text = (int.Parse(increasingCountLabel.text) + 1).ToString();
+    }
+
     public void SetupPieces(List<string> names)
     {
         foreach (string name in names)
