@@ -11,10 +11,13 @@
                 <ui:VisualElement name="langDeck" style="width: 50%; height: 100%; justify-content: space-around;">
                     <ui:DropdownField label="Language" index="0" choices="English, Беларуская" name="langChooser" style="-unity-text-align: middle-center; font-size: 50%; -unity-font-style: normal; color: rgb(255, 255, 255); height: 80%; width: 100%;" />
                 </ui:VisualElement>
-                <ui:VisualElement name="skyboxDeck" style="width: 50%; height: 100%; flex-direction: row; justify-content: space-around; margin-left: 2.5%; margin-right: 2.5%; align-items: center;">
+                <ui:VisualElement name="skyboxDeck" style="width: 30%; height: 100%; flex-direction: row; justify-content: space-around; margin-left: 2.5%; margin-right: 2.5%; align-items: center;">
                     <ui:Button display-tooltip-when-elided="true" name="skybox1" class="skyboxButton" style="background-image: url(&apos;project://database/Assets/UI/Textures/MainMenu/Skyboxes/skybox1.png?fileID=2800000&amp;guid=ce620a5d94d55684ab3c97eefbf4fca5&amp;type=3#skybox1&apos;); -unity-background-scale-mode: scale-to-fit;" />
                     <ui:Button display-tooltip-when-elided="true" name="skybox2" class="skyboxButton" style="background-image: url(&apos;project://database/Assets/UI/Textures/MainMenu/Skyboxes/skybox2.png?fileID=2800000&amp;guid=5ca16abb3b181074cb0401bf632091dc&amp;type=3#skybox2&apos;); -unity-background-scale-mode: scale-to-fit;" />
                     <ui:Button display-tooltip-when-elided="true" name="skybox3" class="skyboxButton" style="background-image: url(&apos;project://database/Assets/UI/Textures/MainMenu/Skyboxes/skybox3.png?fileID=2800000&amp;guid=048693aff9176a74495b1e0e359519d1&amp;type=3#skybox3&apos;); -unity-background-scale-mode: scale-to-fit;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="checkEffectDeck" style="width: 15%; height: 100%; flex-direction: row; justify-content: space-around; margin-left: 0; margin-right: 0; align-items: center; margin-top: 0; margin-bottom: 0;">
+                    <ui:Button display-tooltip-when-elided="true" name="checkEffect" text="Check&#10;Effect" class="controlButton" style="padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; width: 70%; height: 70%; justify-content: center; font-size: 15%;" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="lowerDeck" style="height: 77.5%;">

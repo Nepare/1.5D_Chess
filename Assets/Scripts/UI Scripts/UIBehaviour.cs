@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class UIBehaviour : MonoBehaviour
 {   
-    private Button buttonStart, buttonQuit, buttonOptions, buttonApply, buttonDefault, buttonDefaultControls, buttonSkybox1, buttonSkybox2, buttonSkybox3;
+    private Button buttonStart, buttonQuit, buttonOptions, buttonApply, buttonDefault, buttonCheckCheck, buttonDefaultControls, buttonSkybox1, buttonSkybox2, buttonSkybox3;
     private Button ctrlSelect, ctrlSpin, ctrlCenter, ctrlEscape, ctrlRight, ctrlLeft, ctrlUp, ctrlDown, ctrlClck, ctrlAClck, ctrlTwrd, ctrlBckwrd, ctrlZoomout, ctrlZoomin;
     private Label lblSelect, lblSpin, lblCenter, lblEscape, lblRight, lblLeft, lblUp, lblDown, lblClck, lblAClck, lblTwrd, lblBckwrd, lblZoomin, lblZoomout;
 
@@ -14,6 +14,7 @@ public class UIBehaviour : MonoBehaviour
     private VisualElement root, boardManagement, controlManagement;
     private Label lblInstructions, lblWarnings;
     private bool optionsOpen;
+    private static bool checkChecked = true;
     private int skyboxChosen = 0;
     private System.Collections.Generic.Dictionary<string, string> boardConfig;
 
@@ -37,6 +38,7 @@ public class UIBehaviour : MonoBehaviour
 
         buttonManageBoard = root.Q<Button>("ButtonManageBoard");
         buttonManageControls = root.Q<Button>("ButtonManageControls");
+        buttonCheckCheck = root.Q<Button>("checkEffect");
         buttonDefaultBoard = root.Q<Button>("buttonDefaultBoard");
         buttonDefaultControls = root.Q<Button>("defaultControls");
 
@@ -62,12 +64,14 @@ public class UIBehaviour : MonoBehaviour
             buttonPieces[i] = root.Q<Button>(pieceName);
         }
         
-        buttonQuit.clicked += ExitGame;
-        buttonStart.clicked += MoveToGame;
-        buttonOptions.clicked += OptionsToggle;
-        buttonApply.clicked += ApplyChanges;
-        buttonDefault.clicked += Default;
-        buttonDefaultControls.clicked += DefaultControls;
+        buttonQuit.clicked += ExitGame; buttonQuit.clicked += MakeButtonClickSound;
+        buttonStart.clicked += MoveToGame; buttonStart.clicked += MakeButtonClickSound;
+        buttonOptions.clicked += OptionsToggle; buttonOptions.clicked += MakeButtonClickSound;
+        buttonApply.clicked += ApplyChanges; buttonApply.clicked += MakeButtonClickSound;
+        buttonDefault.clicked += Default; buttonDefault.clicked += MakeButtonClickSound;
+        buttonDefaultControls.clicked += DefaultControls; buttonDefaultControls.clicked += MakeButtonClickSound;
+        buttonDefaultBoard.clicked += DefaultBoard; buttonDefaultBoard.clicked += MakeButtonClickSound;
+        buttonCheckCheck.clicked += CheckCheck; buttonCheckCheck.clicked += MakeButtonClickSound;
 
         buttonSkybox1.clicked += EnableSkybox1;
         buttonSkybox2.clicked += EnableSkybox2;
@@ -75,7 +79,6 @@ public class UIBehaviour : MonoBehaviour
 
         buttonManageBoard.clicked += ManageBoard;
         buttonManageControls.clicked += ManageControls;
-        buttonDefaultBoard.clicked += DefaultBoard;
 
         buttonPieces[0].clicked += ChoosePieceWk;
         buttonPieces[1].clicked += ChoosePieceWq;
@@ -95,6 +98,7 @@ public class UIBehaviour : MonoBehaviour
         CloseOptions();
         SetUpBoardVisuals(SetUpConfigurer.SETUP_CONFIGURATION);
         ExportControlsToVisualBoard();
+        if (checkChecked) { checkChecked = false; CheckCheck(); }
         SetUpConfigurer.SubscribeAllTiles();
 
         switch (LanguageController.SKYBOX_ID)
@@ -119,6 +123,7 @@ public class UIBehaviour : MonoBehaviour
     {
         LanguageController.LANG_ID = dropdownLang.index + 1;
         LanguageController.SKYBOX_ID = skyboxChosen;
+        MusicController.checkChange = checkChecked;
         UpdateLanguage();
         if (SetUpConfigurer.bkPos != "" && SetUpConfigurer.wkPos != "")
             SetUpConfigurer.UpdateSetUp();
@@ -132,9 +137,10 @@ public class UIBehaviour : MonoBehaviour
         LanguageController.SKYBOX_ID = 1;
         dropdownLang.index = 0;
         UpdateLanguage();
-        EnableSkybox1();
+        EnableSkybox2();
         DefaultBoard();
         DefaultControls();
+        checkChecked = false; CheckCheck();
     }
 
     private void DefaultBoard()
@@ -183,6 +189,7 @@ public class UIBehaviour : MonoBehaviour
         buttonDefaultBoard.text = LanguageController.GetWord("Menu.DefaultBoard");
         lblInstructions.text = LanguageController.GetWord("Menu.BoardControlHint");
         buttonDefaultControls.text = LanguageController.GetWord("Keybinds.Default");
+        buttonCheckCheck.text = LanguageController.GetWord("Menu.CheckCheck");
 
         lblSelect.text = LanguageController.GetWord("Keybinds.Select");
         lblLeft.text = LanguageController.GetWord("Keybinds.Left");
@@ -559,5 +566,24 @@ public class UIBehaviour : MonoBehaviour
     {
         Keybinds.keybinds = Keybinds.DefaultKeybinds();
         ExportControlsToVisualBoard();
+    }
+
+    private void MakeButtonClickSound()
+    {
+        gameObject.GetComponent<AudioSource>().Play();
+    }
+
+    private void CheckCheck()
+    {
+        if (checkChecked)
+        {
+            Borderify(buttonCheckCheck, 0);
+            checkChecked = false;
+        }
+        else
+        {
+            Borderify(buttonCheckCheck, 2);
+            checkChecked = true;
+        }
     }
 }

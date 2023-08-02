@@ -237,17 +237,13 @@ public class GameController : MonoBehaviour
                     board[move.GetEndX(), move.GetEndY()] = boardEdges[startY == 1 ? 0 : 1];
                     boardEdges[startY == 1 ? 0 : 1] = null;
                     startX = move.GetEndX();
-                }
-
-                //////////////////////             
+                }    
 
                 if ((board[move.GetEndX(), move.GetEndY()] == "wp" && move.GetEndY() == 15) || (board[move.GetEndX(), move.GetEndY()] == "bp" && move.GetEndY() == 0)) 
                 { 
                     GlobalEventManager.SendPawnPromoted(currentlyEnabledPiece, board[move.GetEndX(), move.GetEndY()][0] == 'w' ? true : false, (move.GetEndX().ToString() + move.GetEndY().ToString())); 
                     menu.GetComponent<EscapeMenu>().DecreasePieceCount(board[move.GetEndX(), move.GetEndY()]);
                 }
-
-                //////////////////////
 
                 GlobalEventManager.SendMoveMade();
                 NextTurn();
@@ -263,6 +259,8 @@ public class GameController : MonoBehaviour
                         GlobalEventManager.SendCheckShow();
                     }
                 }
+                else gameObject.GetComponent<MusicController>().ChangeMusicToNormal();
+                
                 if (IsPlayerDoomed(WhitesTurnToMove))
                 {
                     GlobalEventManager.SendPlayerStalemated(WhitesTurnToMove ? "w" : "b");

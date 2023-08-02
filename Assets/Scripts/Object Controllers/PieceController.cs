@@ -130,6 +130,7 @@ public class PieceController : MonoBehaviour
                 yield return new WaitForFixedUpdate();
             }
             StartCoroutine(CorrectYLevelPosition(15));
+            gameObject.GetComponent<AudioSource>().Play();
             // ANIMATION FINISHES HERE
         } 
     }

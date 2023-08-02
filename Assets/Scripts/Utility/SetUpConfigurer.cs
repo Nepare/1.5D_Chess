@@ -124,7 +124,13 @@ public class SetUpConfigurer : MonoBehaviour
             if (wkPos == tileName) wkPos = "";
             if (bkPos == tileName) bkPos = "";
         }
+        else if ((activePiece == "bp" && tileName.Substring(1) == "0") || (activePiece == "wp" && tileName.Substring(1) == "15"))
+        {
+            root.Q<Label>("lblWarnings").text = LanguageController.GetWord("Menu.BoardControlPawnPromotion");
+            return;
+        }
         else current_config[tileName] = activePiece;
+        
         if (activePiece == "wk" && wkPos != tileName)
         {
             if (wkPos != "")
@@ -143,11 +149,7 @@ public class SetUpConfigurer : MonoBehaviour
             }
             bkPos = tileName;
         }
-        if ((activePiece == "bp" && tileName.Substring(1) == "0") || (activePiece == "wp" && tileName.Substring(1) == "15"))
-        {
-            root.Q<Label>("lblWarnings").text = LanguageController.GetWord("Menu.BoardControlPawnPromotion");
-            return;
-        }
+
         root.Q<Button>(tileName[0] + (System.Convert.ToInt32(tileName.Substring(1)) + 1).ToString()).style.backgroundImage = UIBehaviour.GetTextureFromName(activePiece);
         activePiece = "";
         root.Q<Label>("lblWarnings").text = "";

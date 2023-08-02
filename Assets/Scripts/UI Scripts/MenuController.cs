@@ -35,6 +35,10 @@ public class MenuController : MonoBehaviour
         AddPiecesToBackground(20);
     }
 
+    private void Start() {
+        StartCoroutine(PlayMenuMusic(270f));
+    }
+
     private void Update() {
         for (int i=0; i<floatingPieces.Count; i++)
         {
@@ -71,5 +75,14 @@ public class MenuController : MonoBehaviour
             y = radius * Mathf.Sin(theta) * Mathf.Sin(phi);
             z = radius * Mathf.Cos(theta);
             return new Vector3(x, y, z);
+    }
+
+    IEnumerator PlayMenuMusic(float repeatTimer)
+    {
+        while (true)
+        {
+            gameObject.GetComponent<AudioManager>().Play("MenuTheme", 0f, 0.2f, 0f, 5000, 240);
+            yield return new WaitForSecondsRealtime(repeatTimer);
+        }
     }
 }
