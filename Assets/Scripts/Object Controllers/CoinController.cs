@@ -29,7 +29,7 @@ public class CoinController : MonoBehaviour
         RectTransform objectRectTransform = transform.GetComponentInParent<RectTransform>();
         canvasHeight = objectRectTransform.rect.height;
         canvasWidth = objectRectTransform.rect.width;
-        transform.localPosition = new Vector3(canvasWidth / 2 - (transform.localScale.x * 1.25f), canvasHeight / 2 - (transform.localScale.y * 1.25f), 0);
+        transform.localPosition = new Vector3(canvasWidth / 2 - (transform.localScale.x * 1.25f), canvasHeight / 2 - (transform.localScale.y * 1.25f), 70);
     }
 
     private void Start() {

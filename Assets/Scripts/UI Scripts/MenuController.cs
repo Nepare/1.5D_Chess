@@ -36,7 +36,7 @@ public class MenuController : MonoBehaviour
     }
 
     private void Start() {
-        StartCoroutine(PlayMenuMusic(270f));
+        StartCoroutine(PlayMenuMusic(270f, 1));
     }
 
     private void Update() {
@@ -77,11 +77,12 @@ public class MenuController : MonoBehaviour
             return new Vector3(x, y, z);
     }
 
-    IEnumerator PlayMenuMusic(float repeatTimer)
+    IEnumerator PlayMenuMusic(float repeatTimer, float startSeconds)
     {
+        yield return new WaitForSecondsRealtime(startSeconds);
         while (true)
         {
-            gameObject.GetComponent<AudioManager>().Play("MenuTheme", 0f, 0.2f, 0f, 5000, 240);
+            gameObject.GetComponent<AudioManager>().Play("MenuTheme");
             yield return new WaitForSecondsRealtime(repeatTimer);
         }
     }

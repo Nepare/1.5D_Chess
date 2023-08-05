@@ -19,9 +19,9 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void Play(string soundName, float startVolume, float highVolume, float endVolume, int fadeTimer, int timeToFadeOut)
+    public void PlayWithFade(string soundName, float startVolume, float highVolume, float endVolume, int fadeTimer, int timeToFadeOut)
     {
-        AudioSound s = System.Array.Find(sounds, sound => sound.name == soundName);
+        AudioSound s = Array.Find(sounds, sound => sound.name == soundName);
         if (s != null)
         {
             s.source.Play();
@@ -31,9 +31,18 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    public void Play(string soundName)
+    {
+        AudioSound s = Array.Find(sounds, sound => sound.name == soundName);
+        if (s != null)
+        {
+            s.source.Play();
+        }
+    }
+
     public void Stop(string soundName)
     {
-        AudioSound s = System.Array.Find(sounds, sound => sound.name == soundName);
+        AudioSound s = Array.Find(sounds, sound => sound.name == soundName);
         if (s != null)
         {
             s.source.Stop();

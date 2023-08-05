@@ -21,7 +21,7 @@ public class MusicController : MonoBehaviour
     {
         while (true)
         {
-            gameObject.GetComponent<AudioManager>().Play("defaultTheme", 0f, 0.2f, 0f, 5000, 240);
+            gameObject.GetComponent<AudioManager>().Play("defaultTheme");
             yield return new WaitForSecondsRealtime(repeatTimer);
         }
     }
@@ -30,7 +30,7 @@ public class MusicController : MonoBehaviour
     {
         while (true)
         {
-            gameObject.GetComponent<AudioManager>().Play("checkTheme", 0f, 0.2f, 0f, 100, 0);
+            gameObject.GetComponent<AudioManager>().Play("checkTheme");
             yield return new WaitForSecondsRealtime(repeatTimer);
         }
     }
