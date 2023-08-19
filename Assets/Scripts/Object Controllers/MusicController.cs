@@ -19,7 +19,7 @@ public class MusicController : MonoBehaviour
 
     IEnumerator PlayMenuMusic(float repeatTimer)
     {
-        while (true)
+        while (true && isMusicNormal)
         {
             gameObject.GetComponent<AudioManager>().Play("defaultTheme");
             yield return new WaitForSecondsRealtime(repeatTimer);
@@ -28,7 +28,7 @@ public class MusicController : MonoBehaviour
 
     IEnumerator PlayCheckMusic(float repeatTimer)
     {
-        while (true)
+        while (true && !isMusicNormal)
         {
             gameObject.GetComponent<AudioManager>().Play("checkTheme");
             yield return new WaitForSecondsRealtime(repeatTimer);
@@ -41,7 +41,7 @@ public class MusicController : MonoBehaviour
         
         isMusicNormal = false;
         checkFilter.SetActive(true);
-        StopCoroutine("PlayMenuMusic");
+        StopAllCoroutines();
         gameObject.GetComponent<AudioManager>().Stop("defaultTheme");
         StartCoroutine(PlayCheckMusic(65));
     }
@@ -52,7 +52,7 @@ public class MusicController : MonoBehaviour
         else isMusicNormal = true;
 
         checkFilter.SetActive(false);
-        StopCoroutine("PlayCheckMusic");
+        StopAllCoroutines();
         gameObject.GetComponent<AudioManager>().Stop("checkTheme");
         StartCoroutine(PlayMenuMusic(270f));
     }
